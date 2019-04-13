@@ -1,0 +1,25 @@
+{
+  "name": "carmenstravelapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ilene0413/carmenstravelapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ilene0413/carmenstravelapp/issues"
+  },
+  "homepage": "https://github.com/Ilene0413/carmenstravelapp#readme",
+  "dependencies": {
+    "google-tts-api": "0.0.4",
+    "nodemon": "^1.18.11",
+    "react-materialize": "^3.0.5"
+  }
+}
