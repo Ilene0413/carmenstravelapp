@@ -13,6 +13,7 @@ router.route("/")
 	.get(notesController.findAll);
 	
 router.route("/:name")
+    .get(notesController.findMyNotes)
 	.post(notesController.create);
 
 

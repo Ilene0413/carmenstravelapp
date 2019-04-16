@@ -19,6 +19,12 @@ module.exports = {
 			.catch(err => res.json(err));
 
 	},
+	findMyNotes: function (req, res) {
+		db.Note.find( {userid: req.params.name})
+			.sort({ date: -1 })
+			.then(dbModel=> res.json(dbModel))
+			.catch(err => res.json(err));
+	},
 
 
 
