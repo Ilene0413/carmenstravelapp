@@ -1,35 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Nav() {
+
+function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <Link className="navbar-brand" to="/">
-        Carmen's Travel App
+    <Link className="navbar-brand" to="/">
+      <img src="/images/redhat.jpg" style={{width:100, marginTop: -7}}/>
+      Carmen's Travel App
       </Link>
       <div>
         <ul className="navbar-nav">
         <li className="nav-item">
-        <Link to="/books"
-        className={window.location.pathname === "/" || window.location.pathname === "/books"
-        ? "nav-link active" 
-        : "nav-link"
-        }
-        >
-        User Name
-      </Link>
+        User Name:
+      
+        </li>
+      <li className="nav-item">     
+        Wins:  {props.wins}
       </li>
-      <li className="nav-item">
-      <Link to="/saved"
-     className={window.location.pathname === "/saved"
-     ? "nav-link active" 
-     : "nav-link"
-     }
-     >
-        Status
-      </Link>
-      </li>
-      </ul>
+      </ul>{props.children}
       </div>
     </nav>
   );
