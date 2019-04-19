@@ -1,38 +1,34 @@
 {
-  "name": "carmenstravelapp",
+  "name": "project_3",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "google-tts-api": "0.0.4",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.5.2",
+    "path": "^0.12.7",
+    "pexels-api-wrapper": "^1.1.1",
+    "react-materialize": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11",
+    "concurrently": "^4.1.0"
+  },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ilene0413/carmenstravelapp.git"
-  },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ilene0413/carmenstravelapp/issues"
-  },
-  "homepage": "https://github.com/Ilene0413/carmenstravelapp#readme",
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.18.7"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "express": "^4.16.4",
-    "if-env": "^1.0.4",
-    "mongoose": "^5.4.22",
-    "google-tts-api": "0.0.4",
-    "react-materialize": "^3.0.5"
-  }
+  "license": "ISC"
 }
