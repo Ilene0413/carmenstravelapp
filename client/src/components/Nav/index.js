@@ -6,7 +6,7 @@ function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <Link className="navbar-brand" to="/">
-
+      <img src="/images/redhat.jpg" style={{width:100, marginTop: -7}}/>
       Carmen's Travel App
       </Link>
       <div>

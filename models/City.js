@@ -15,7 +15,12 @@ var CitySchema = new Schema({
   summary: {
     type: String
   },
-  // `link` is required and of type String
+  latitude: {
+    type: Number
+  },
+  longitude: {
+    type: Number
+  },
   places: [{
     type: String,
     required: true
@@ -24,6 +29,9 @@ var CitySchema = new Schema({
     type: String,
     required: true
 
+  }],
+  cardimages: [{
+    type: String
   }],
   choices: [{
     type: String,
