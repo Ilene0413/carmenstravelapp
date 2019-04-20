@@ -9,13 +9,16 @@ import ImgComp from "../components/ImgComp";
 import ClueComp from "../components/ClueComp";
 import dbAPI from "../utils/dbAPI";
 import { Col, Row, Container } from "../components/Grid";
+import Speech from 'speak-tts';
 
 
 //import { set } from "mongoose";
 //import { List, ListItem } from "../components/List";
 
 // state is below. I am setting some default values for testing components
+const speech = new Speech();
 class Games extends Component {
+   
     state = {
         userData: null,
         game: [],
@@ -36,6 +39,25 @@ class Games extends Component {
     };
 
     componentDidMount() {
+
+        
+        speech.init({
+            'volume': 1,
+             'lang': 'en-US',
+             'rate': 1,
+             'pitch': 1,
+             'voice':'Google UK English Female',
+             'splitSentences': true,
+             'listeners': {
+                 'onvoiceschanged': (voices) => {
+                     console.log("Event voiceschanged", voices)
+                 }
+             }
+     }).then((data) => {
+            console.log("Speech is read, voices are available", data)
+        }).catch(e => {
+            console.error("An error occured while initializing : ", e)
+        })
         // need to get login info from facebook api. 
         // if not logged in, don't display anything and ask user to login.
         console.log("componentDidMount: props.userID: " + this.props.login);
@@ -153,8 +175,16 @@ class Games extends Component {
                     clueText: this.state.clues[parseInt(selection)]
 
                 });
+                speech.speak({
+                    text: this.state.clueText,
+                }).then(() => {
+                    console.log("Success !")
+                }).catch(e => {
+                    console.error("An error occurred :", e)
+                })
 
             });
+
 
     }
 
