@@ -26,6 +26,7 @@ class Games extends Component {
         landmarks: [],
         cities: [],
         clues: [],
+        cardimages: [],
         correctCity: null,
         selectedLandmark: -1, // initializing to a non-valid value to begin
         cityInfoText: null,
@@ -87,6 +88,7 @@ class Games extends Component {
         let landmarksArray = citiesData[index].places;
         let correctCity = citiesData[index + 1].name; // correct city is next one in array
         let cluesArray = citiesData[index + 1].clues; // need to look at next element to get clues for correct city
+        let imagesArray = citiesData[index].cardimages;
         let citiesArray = citiesData[index + 1].choices;
         citiesArray.push(correctCity); // push correct city into array of choices
         // need to randomize citiesArray as we don't want the correct choice to always be the last one
@@ -97,9 +99,11 @@ class Games extends Component {
             landmarks: landmarksArray,
             correctCity: correctCity,
             clues: cluesArray,
+            cardimages: imagesArray,
             cities: citiesArray,
             gameIndex: index,
-            clueText: ""
+            clueText: "",
+            cardImage: ""
         });
     }
 
@@ -116,6 +120,7 @@ class Games extends Component {
                     selectedLandmark: -1,
                     cityInfoText: null,
                     clueText: "",
+                    cardImage: "",
                     gameOn: true
                 });
                 this.setupCurrentClue(res.data, 0); // 0 is since this is the first clue (start with index 0)
@@ -144,6 +149,7 @@ class Games extends Component {
                 this.setState({
                     selectedLandmark: selection,
                     image: response.data,
+                    cardImage: this.state.cardimages[parseInt(selection)],
                     clueText: this.state.clues[parseInt(selection)]
 
                 });
@@ -246,7 +252,7 @@ class Games extends Component {
                         </ButtonToolbar>
                     </Col>
                     <Col size="md-4">
-                        <ClueComp text={this.state.clueText}>
+                        <ClueComp text={this.state.clueText} cardimage={this.state.cardImage}>
 
 
 
