@@ -18,7 +18,7 @@ module.exports = {
 			.catch(err => res.json(err));
 	},
 	getRandomRoute: function(req, res) {
-		console.log("getRandomRoute: number: " + req.params.number);
+		
 		let number = parseInt(req.params.number)
 		db.City.aggregate( [ { $sample: {size: number} } ] )  
 		
