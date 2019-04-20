@@ -9,6 +9,8 @@ import ImgComp from "../components/ImgComp";
 import ClueComp from "../components/ClueComp";
 import dbAPI from "../utils/dbAPI";
 import { Col, Row, Container } from "../components/Grid";
+
+
 //import { set } from "mongoose";
 //import { List, ListItem } from "../components/List";
 
@@ -18,6 +20,8 @@ class Games extends Component {
         userData: null,
         game: [],
         gameIndex: 0, // start with index 0
+
+        image: "./images/carmensandiego.jpeg",
         maxCities: 0,
         landmarks: [],
         cities: [],
@@ -83,7 +87,7 @@ class Games extends Component {
         let landmarksArray = citiesData[index].places;
         let correctCity = citiesData[index + 1].name; // correct city is next one in array
         let cluesArray = citiesData[index + 1].clues; // need to look at next element to get clues for correct city
-        let citiesArray = citiesData[index].choices;
+        let citiesArray = citiesData[index + 1].choices;
         citiesArray.push(correctCity); // push correct city into array of choices
         // need to randomize citiesArray as we don't want the correct choice to always be the last one
         this.myShuffler(citiesArray);
@@ -127,11 +131,25 @@ class Games extends Component {
             console.log("landmarkBtnSelection: game ended and user didn't ask to restart");
             return;
         }
+        let landmarkName = this.state.landmarks[selection];
+        console.log("Landmark name = " + landmarkName);
 
-        this.setState({
-            selectedLandmark: selection,
-            clueText: this.state.clues[parseInt(selection)]
-        });
+        // axios.get("/api/pexels/" + landmarkName)
+        dbAPI.getLandmarkImage(landmarkName)
+            .then(response => {
+                console.log("Back from pexels");
+                console.log(response.data);
+
+
+                this.setState({
+                    selectedLandmark: selection,
+                    image: response.data,
+                    clueText: this.state.clues[parseInt(selection)]
+
+                });
+
+            });
+
     }
 
     nextCityBtnSelect = selection => {
@@ -191,7 +209,7 @@ class Games extends Component {
                 <Nav wins={this.state.wins}></Nav>
                 <Row>
                     <Col size="md-8">
-                        <ImgComp image="./images/carmensandiego.jpeg" title="Carmen San Diego" />
+                        <ImgComp image={this.state.image} title="Carmen San Diego" />
                     </Col>
                     <Col size="md-4">
                         {/* put description component here with text={this.state.cityInfoText}*/}
@@ -230,10 +248,17 @@ class Games extends Component {
                     <Col size="md-4">
                         <ClueComp text={this.state.clueText}>
 
+
+
                         </ClueComp>
+
+
+
                     </Col>
                 </Row>
-            </Container>
+                
+
+            </Container >
         );
     }
 }
