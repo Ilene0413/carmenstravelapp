@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  position: relative;
+    width: 100%;
 }
 
 .navbar-brand {
@@ -26,6 +28,11 @@
 
 .App-link {
   color: red;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
 }
 
 

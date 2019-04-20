@@ -1,26 +1,27 @@
-import React, { Component} from 'react';
-import './App.css';
+import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import './App.css';
 import Nav from "./components/Nav";
 import Wrapper from "./components/Wrapper";
-
-class App extends Component {
-  state = {
-    wins: 0
-  };
+import Signin from "./pages/Signin";
+import Game from "./pages/Game";
 
 
-render() {
-    return (
-      <Wrapper score={this.state.wins}>
-      <Router>
-        <div>
-     <Nav />
-     </div>
-     </Router>
-     </Wrapper>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div>
+        <Wrapper>
+          <Nav />
+          <Route exact path="/" component={Signin} />
+          <Route exact path="/signin" component={Signin} />
+          <Route exact path="/game" component={Game} />
+        </Wrapper>
+      </div>
+    </Router>
 
+  );
 }
+
+
 export default App;
