@@ -29,5 +29,14 @@ export default {
   // Create user
   createUser(userData) {
     return axios.post("/api/users", userData);
+  },
+  
+  convertToSpeech: function(text) {
+    return axios.get("/api/googletts/" + text);
+  },
+
+  getLandmarkImage: function (landmark) {
+    return axios.get("/api/pexels/" + landmark);
+     
   }
-};
+}
