@@ -15,12 +15,6 @@ var CitySchema = new Schema({
   summary: {
     type: String
   },
-  latitude: {
-    type: Number
-  },
-  longitude: {
-    type: Number
-  },
   // `link` is required and of type String
   places: [{
     type: String,

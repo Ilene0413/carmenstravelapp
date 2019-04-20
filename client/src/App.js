@@ -1,27 +1,31 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import './App.css';
+import { hot } from "react-hot-loader/root";
 import Nav from "./components/Nav";
 import Wrapper from "./components/Wrapper";
 import Signin from "./pages/Signin";
-import Game from "./pages/Game";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Games from "./pages/Games";
 
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <Wrapper>
-          <Nav />
-          <Route exact path="/" component={Signin} />
-          <Route exact path="/signin" component={Signin} />
-          <Route exact path="/game" component={Game} />
-        </Wrapper>
-      </div>
-    </Router>
+class App extends Component {
+  state = {
+    login: null
+  };
 
-  );
+  render() {
+    return (
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" render={(props) => <Games {...props} login={this.state.login} />} />
+            <Route exact path="/games" render={(props) => <Games {...props} login={this.state.login} />} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
+export default hot(App);
 
-export default App;
+
