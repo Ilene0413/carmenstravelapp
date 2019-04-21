@@ -7,7 +7,7 @@ import "./style.css";
 function ClueComp(props) {
   return (
     <Card style={{ width: '18rem' }}>
-      {<Card.Img variant="top" src={props.cardimage} />}
+      {<Card.Img className="card-img" variant="top" src={props.cardimage} />}
       <Card.Body>
         <Card.Title>Clue from Witness</Card.Title>
         <Card.Text>

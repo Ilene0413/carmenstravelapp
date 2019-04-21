@@ -9,8 +9,7 @@ import "./style.css";
 function ImgComp(props) {
   return (
     <div>
-      <h1>IMAGE OR MAP/GLOBE Goes HERE.  Added Carmen Image for now</h1>
-      <img src={props.image} alt={props.title} height="200"></img>
+      <img className="img-comp" src={props.image} alt={props.title}></img>
     </div>
   );
 }

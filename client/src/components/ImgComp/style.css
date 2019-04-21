@@ -1,3 +1,6 @@
-.action-btn {
-  float: left;
+.img-comp {
+  margin-bottom: 20px;
+  height: 500px;
+  width: 800px;
+  object-fit: contain;
 }
