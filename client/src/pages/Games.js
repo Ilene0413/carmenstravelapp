@@ -159,7 +159,7 @@ class Games extends Component {
             return;
         }
         let landmarkName = this.state.landmarks[selection];
-        console.log("Landmark name = " + landmarkName);
+        console.log("Landmark name = " + landmarkName); 
 
         // axios.get("/api/pexels/" + landmarkName)
         dbAPI.getLandmarkImage(landmarkName)
