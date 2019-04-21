@@ -15,7 +15,8 @@
     "react-hot-loader": "^4.8.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "resium": "^1.4.1"
+    "resium": "^1.4.1",
+    "speak-tts": "^2.0.8"
   },
   "scripts": {
     "start": "craco start",
