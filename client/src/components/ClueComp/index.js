@@ -9,7 +9,7 @@ function ClueComp(props) {
     <Card style={{ width: '18rem' }}>
       {<Card.Img className="card-img" variant="top" src={props.cardimage} />}
       <Card.Body>
-        <Card.Title>Clue from Witness</Card.Title>
+        <Card.Title>{props.title}</Card.Title>
         <Card.Text>
           {props.text}
         </Card.Text>
@@ -20,6 +20,8 @@ function ClueComp(props) {
 }
 
 export default ClueComp;
+
+
 
 
 
