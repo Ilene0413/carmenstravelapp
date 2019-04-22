@@ -8,6 +8,10 @@ export default {
   // Gets the city with the given name
   getCity: function(name) {
     return axios.get("/api/cities/" + name);
+  }, 
+  // Create a note for a given city
+  saveNote: function(city,noteData) {
+    return axios.post("api/notes/"+city, noteData);
   },
   // Gets Cities in random order.  Number is used to determine how many documents to return.  We should always 
   // pass MAX
@@ -31,11 +35,19 @@ export default {
     return axios.post("/api/users", userData);
   },
   
-  convertToSpeech: function(text) {
-    return axios.get("/api/googletts/" + text);
+  getPOI: function(city) {
+    return axios.get("api/triposo/poi" + city);
+
+  },
+  getEatingOut: function(city) {
+    return axios.get("api/triposo/eatout" + city);
+
+  },
+  getNightLife: function(city) {
+    return axios.get("api/triposo/nightlife" + city);
   },
 
-  getLandmarkImage: function (landmark) {
+  getLandmarkImage: function(landmark) {
     return axios.get("/api/pexels/" + landmark);
      
   }

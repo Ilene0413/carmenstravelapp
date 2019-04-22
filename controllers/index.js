@@ -3,7 +3,7 @@ const Notes = require("./notesController");
 
 const Users = require("./usersController");
 const Pexels = require("./pexelController");
-const TTS = require("./ttsController");
+const Triposo = require("./triposoController");
 
 
 
@@ -13,6 +13,6 @@ module.exports = {
 	Notes,
 	Users,
 	Pexels,
-	TTS
+	Triposo
 
 };
