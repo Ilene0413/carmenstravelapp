@@ -35,7 +35,9 @@ class Games extends Component {
         correctCity: null,
         selectedLandmark: -1, // initializing to a non-valid value to begin
         cityInfoText: null,
+        clueTitle: null,
         clueText: null,
+        clueImage: null,
         statusText: null,
         statusColor: null,
         statusIsVisible: false,
@@ -116,6 +118,7 @@ class Games extends Component {
         let correctCity = citiesData[index + 1].name; // correct city is next one in array
         let cluesArray = citiesData[index + 1].clues; // need to look at next element to get clues for correct city
         let imagesArray = citiesData[index].cardimages;
+        let aerialImage = citiesData[index].aerialimage;
         let citiesArray = citiesData[index + 1].choices;
         citiesArray.push(correctCity); // push correct city into array of choices
         // need to randomize citiesArray as we don't want the correct choice to always be the last one
@@ -129,16 +132,17 @@ class Games extends Component {
             cardimages: imagesArray,
             cities: citiesArray,
             gameIndex: index,
-            clueText: "",
-            cardImage: "",
-            image: "",  // set image is new city here
-            imageText: ("Put Image of " + citiesData[index].name)
+            clueTitle: "Instruction",
+            clueText: "Select landmark to get a clue. If unable to answer clue select another landmark for new clue.",
+            clueImage: "./images/questionMark.png",
+            image: aerialImage,  // set image of new city here
+            imageText: ("Image of " + citiesData[index].name)
         });
     }
 
     loadGame = () => {
         console.log("loadGame");
-        let number = 8; // number of documents (cities) to get back randomly
+        let number = 5; // number of documents (cities) to get back randomly
         dbAPI.getCitiesRandom(number)
             .then(res => {
                 this.setState({
@@ -148,8 +152,6 @@ class Games extends Component {
                     correctCity: null,
                     selectedLandmark: -1,
                     cityInfoText: null,
-                    clueText: "",
-                    cardImage: "",
                     gameOn: true,
                     statusText: "",
                     statusIsVisible: false
@@ -167,7 +169,7 @@ class Games extends Component {
             console.log("landmarkBtnSelection: game ended and user didn't ask to restart");
             return;
         }
-        let landmarkName = this.state.landmarks[parseInt(selection)];
+        let landmarkName = this.state.landmarks[selection];
         console.log("Landmark name = " + landmarkName);
 
         // axios.get("/api/pexels/" + landmarkName)
@@ -180,7 +182,8 @@ class Games extends Component {
                     selectedLandmark: selection,
                     image: response.data,
                     imageText: this.state.landmarks[parseInt(selection)],
-                    cardImage: this.state.cardimages[parseInt(selection)],
+                    clueImage: this.state.cardimages[parseInt(selection)],
+                    clueTitle: "Clue from Witness",
                     clueText: this.state.clues[parseInt(selection)]
 
                 });
@@ -222,12 +225,16 @@ class Games extends Component {
             }
             else { // load next city/landmark/clue
                 this.setupCurrentClue(this.state.game, (this.state.gameIndex + 1));
-                
+                // TODO Change picture to new city instead of alert
+                //alert("Correct!");
+                // instead of above alert, we should change the image to that of the city the
+                // person selected.  Then when they click on a landmark, change the image to
+                // that of the landmark
             }
         }
         else {// incorrect city selected
             // set user score and alert user lost
-            
+            // give option to play again?
             this.setState({ statusText: "You lost!",
                             statusColor: "warning",
                             statusIsVisible: true,
@@ -251,7 +258,8 @@ class Games extends Component {
                         <ImgComp image={this.state.image} title={this.state.imageText} />
                     </Col>
                     <Col size="md-4">
-                        <ClueComp text={this.state.clueText} cardimage={this.state.cardImage} />
+                        <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />
+                        {/* put description component here with text={this.state.cityInfoText}*/}
                     </Col>
                 </Row>
                 <Row>

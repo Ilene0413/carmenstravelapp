@@ -21,6 +21,9 @@ var CitySchema = new Schema({
   longitude: {
     type: Number
   },
+  aerialimage: {
+    type: String
+  },
   places: [{
     type: String,
     required: true
