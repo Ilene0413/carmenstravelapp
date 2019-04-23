@@ -35,16 +35,16 @@ export default {
     return axios.post("/api/users", userData);
   },
   
-  getPOI: function(city) {
-    return axios.get("api/triposo/poi" + city);
+  getPOI(city) {
+    return axios.get("/api/triposo/poi/" + city);
 
   },
-  getEatingOut: function(city) {
-    return axios.get("api/triposo/eatout" + city);
+  getEatingOut(city) {
+    return axios.get("/api/triposo/eatout/" + city);
 
   },
-  getNightLife: function(city) {
-    return axios.get("api/triposo/nightlife" + city);
+  getNightLife(city) {
+    return axios.get("/api/triposo/nightlife/" + city);
   },
 
   getLandmarkImage: function(landmark) {
