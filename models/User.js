@@ -7,7 +7,12 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var UserSchema = new Schema({
   // `title` is of type String
-  userid: String,
+  userid: {
+    type: String,
+    index: {unique: true, dropDups: true},
+    required: true
+  },
+  username: String,
   wins: { type: Number, default: 0 },
   losses: { type: Number, default: 0 }
   
