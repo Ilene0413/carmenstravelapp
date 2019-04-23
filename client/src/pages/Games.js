@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ButtonToolbar } from 'react-bootstrap';
 import Nav from "../components/Nav";
-//import Map from "../components/Map";
 import LandmarkBtn from "../components/LandmarkBtn";
 import NextCityBtn from "../components/NextCityBtn";
 import MoreInfoBtn from "../components/MoreInfoBtn";
@@ -13,19 +12,14 @@ import dbAPI from "../utils/dbAPI";
 import { Col, Row, Container } from "../components/Grid";
 import Speech from 'speak-tts';
 
-
-//import { set } from "mongoose";
-//import { List, ListItem } from "../components/List";
-
 // state is below. I am setting some default values for testing components
 const speech = new Speech();
 class Games extends Component {
-   
+
     state = {
-        userData: null,
         game: [],
         gameIndex: 0, // start with index 0
-        image: "./images/carmensandiego.jpeg",
+        image: null,
         imageText: "Carmen San Diego",
         maxCities: 0,
         landmarks: [],
@@ -42,34 +36,40 @@ class Games extends Component {
         statusColor: null,
         statusIsVisible: false,
         wins: 0,
+        losses: 0,
         gameOn: true
     };
 
+    constructor(props) {
+        console.log("Games: constructor");
+        super(props);
+        this.state.wins = this.props.location.state.wins;
+        this.state.losses = this.props.location.state.losses;
+    }
+
     componentDidMount() {
 
-        
+
         speech.init({
             'volume': 1,
-             'lang': 'en-US',
-             'rate': 1,
-             'pitch': 1,
-             'voice':'Google UK English Female',
-             'splitSentences': true,
-             'listeners': {
-                 'onvoiceschanged': (voices) => {
-                     console.log("Event voiceschanged", voices)
-                 }
-             }
-     }).then((data) => {
+            'lang': 'en-US',
+            'rate': 1,
+            'pitch': 1,
+            'voice': 'Google UK English Female',
+            'splitSentences': true,
+            'listeners': {
+                'onvoiceschanged': (voices) => {
+                    console.log("Event voiceschanged", voices)
+                }
+            }
+        }).then((data) => {
             console.log("Speech is read, voices are available", data)
         }).catch(e => {
             console.error("An error occured while initializing : ", e)
         })
-        // need to get login info from facebook api. 
-        // if not logged in, don't display anything and ask user to login.
-        console.log("componentDidMount: props.userID: " + this.props.login);
 
-        // TODO: Load User
+        // login come from Signin.js.  It is passed in props.location via the Redirect
+        console.log("componentDidMount: props.location: " + JSON.stringify(this.props.location));
 
         // Loading Game
         this.loadGame();
@@ -79,19 +79,14 @@ class Games extends Component {
         // Typical usage (don't forget to compare props):
         if (this.props.login !== prevProps.login) {
             console.log("componentDidUpdate: login: " + this.props.login);
-            //this.loadGames(this.props.login);
         }
     }
 
-    loadUser = (login) => {
-        dbAPI.getUser(login)
-            .then(res =>
-                this.setState({ user: res.data })
-            )
-            .catch(err => console.log(err));
-    };
-
-    updateUser = userData => {
+    updateUser = () => {
+        let userData = { userid: this.props.location.state.userID,
+                        wins: this.state.wins,
+                        losses: this.state.losses 
+                    };
         dbAPI.updateUser(userData)
             .then(res => console.log("User Data Updated"))
             .catch(err => console.log(err));
@@ -133,7 +128,7 @@ class Games extends Component {
             cities: citiesArray,
             gameIndex: index,
             clueTitle: "Instruction",
-            clueText: "Select landmark to get a clue. If unable to answer clue select another landmark for new clue.",
+            clueText: "Select landmark to get first clue",
             clueImage: "./images/questionMark.png",
             image: aerialImage,  // set image of new city here
             imageText: ("Image of " + citiesData[index].name)
@@ -215,12 +210,14 @@ class Games extends Component {
                 // increment wins
                 let wins = this.state.wins;
                 wins++;
-                this.setState({ wins: wins,
-                                statusText: "You Found Carmen!",
-                                statusColor: "success",
-                                statusIsVisible: true,
-                                gameOn: false
-                             });
+                this.setState({
+                    wins: wins,
+                    statusText: "You Found Carmen!",
+                    statusColor: "success",
+                    statusIsVisible: true,
+                    gameOn: false
+                });
+                this.updateUser(); // update wins in user db
 
             }
             else { // load next city/landmark/clue
@@ -235,11 +232,16 @@ class Games extends Component {
         else {// incorrect city selected
             // set user score and alert user lost
             // give option to play again?
-            this.setState({ statusText: "You lost!",
-                            statusColor: "warning",
-                            statusIsVisible: true,
-                            gameOn: false
-                        });
+            let losses = this.state.losses;
+            losses++;
+            this.setState({
+                losses: losses,
+                statusText: "You lost!",
+                statusColor: "warning",
+                statusIsVisible: true,
+                gameOn: false
+            });
+            this.updateUser(); // update losses in user db
         }
 
     }
@@ -247,7 +249,8 @@ class Games extends Component {
     render() {
         return (
             <Container fluid>
-                <Nav wins={this.state.wins}></Nav>
+                <Nav wins={this.state.wins}
+                    user_name={this.props.location.state.userID}></Nav>
                 <Row>
                     <Col size="md-8">
                         <DesComp text={this.state.cityInfoText} />
@@ -291,10 +294,10 @@ class Games extends Component {
                         </ButtonToolbar>
                     </Col>
                     <Col size="md-6">
-                        <Alert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible}/>
+                        <Alert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
                     </Col>
                 </Row>
-                
+
 
             </Container >
         );

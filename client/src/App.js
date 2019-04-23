@@ -1,28 +1,21 @@
-import { hot } from "react-hot-loader/root";
-
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Games from "./pages/Games";
 import Signin from "./pages/Signin";
 
 
-class App extends Component {
-  state = {
-    login: null
-  };
 
-  render() {
-    return (
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" render={(props) => <Signin {...props} login={this.state.login} />} />
-            <Route exact path="/games" render={(props) => <Games {...props} login={this.state.login} />} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Signin} />
+          <Route exact path="/games" component={Games} />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
-export default hot(App);
+export default App;
