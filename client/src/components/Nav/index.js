@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 
 function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <Link className="navbar-brand" to="/">
-      <img src="/images/redhat.jpg" style={{width:100, marginTop: -7}}/>
+      <img src="/images/redhat.jpg" alt="" style={{width:100, marginTop: -7}}/>
       Carmen's Travel App
       </Link>
       <div>

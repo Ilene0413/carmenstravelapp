@@ -282,8 +282,10 @@ class Games extends Component {
                             />
                             <MoreInfoBtn btn_text="More Info"
                                 id="MoreInfo"
-                                title="More Info"
-                                text=""
+                                data-content="Link: <a href='https://www.triposo.com'>
+                                City tour </a>"
+                                location={this.state.correctCity}
+                                
                             />
                             {/* comment/note button goes here */}
                         </ButtonToolbar>
