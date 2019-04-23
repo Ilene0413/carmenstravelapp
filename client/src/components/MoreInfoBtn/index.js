@@ -14,13 +14,18 @@ function MoreInfoBtn(props) {
       overlay={
         <Popover
           id={props.id}
-          title={props.title}
+          href={props.href}
+          
         >
           <strong>{props.text}</strong>
         </Popover>
       }
     >
-      <Button className="more-info-btn" variant="secondary">{props.btn_text}</Button>
+      <Button className="more-info-btn" 
+        variant="secondary"
+        data-toggle="popover"
+         data-html="true"> 
+         {props.btn_text}</Button>
     </OverlayTrigger>
   );
 }
