@@ -144,34 +144,7 @@ const citySeed = [
 ];
 
 
-const userSeed = [
-    {
-        userid: "Ilene",
-        wins: 0,
-        losses: 0
 
-
-    },
-    {
-        userid: "Dina",
-        wins: 0,
-        losses: 0
-
-    },
-    {
-        userid: "Mukti",
-        wins: 0,
-        losses: 0
-
-    },
-    {
-        userid: "JoAnn",
-        wins: 0,
-        losses: 0
-
-    }
-
-];
 
 db.City.remove({})
     .then(() => db.City.collection.insertMany(citySeed))
@@ -183,13 +156,3 @@ db.City.remove({})
         process.exit(1);
     });
 
-db.User.remove({})
-    .then(() => db.User.collection.insertMany(userSeed))
-    .then(data => {
-        console.log(data.result.n + " records inserted!");
-        process.exit(0);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
