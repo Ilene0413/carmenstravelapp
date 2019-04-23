@@ -15,7 +15,7 @@ const citySeed = [
         summary: "Paris, France's capital, is a major European city and a global center for art, fashion, gastronomy and culture.",
         latitude: 48.864716,
         longitude: 2.349014,
-        aerialimage: "https://i.forfun.com/jiyledz1.jpeg",
+        aerialimage: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/paris-aerial-view-philipp-gtze.jpg",
         places: ["Eiffel Tower", "The Louvre Museum", "Arc de Triomphe"],
         clues: ["She said she's headed to a city on the River Seine.",
             "Ever since the movie, she's been dying to check out the Moulin Rouge.",
