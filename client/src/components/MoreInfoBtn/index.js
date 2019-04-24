@@ -15,10 +15,16 @@ function MoreInfoBtn(props) {
         <Popover
           id={props.id}
           title={props.title}
-          onSelect={(selection) => props.onSelect(selection)}
-          
+        
         >
-          <strong>{props.text}</strong>
+          
+          {props.text.map((poi, index) => (
+            <a href={poi.link} target="_blank">{poi.name}</a>
+           
+            
+          ))}
+          
+          
         </Popover>
       }
     >

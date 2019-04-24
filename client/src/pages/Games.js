@@ -38,6 +38,7 @@ class Games extends Component {
         statusColor: null,
         statusIsVisible: false,
         pointsOfInterest: [],
+        notes: [],
         wins: 0,
         losses: 0,
         gameOn: true
@@ -48,6 +49,15 @@ class Games extends Component {
         super(props);
         this.state.wins = this.props.location.state.wins;
         this.state.losses = this.props.location.state.losses;
+
+    }
+
+    componentDidMount() {
+
+
+
+        // login come from Signin.js.  It is passed in props.location via the Redirect
+        console.log("componentDidMount: props.location: " + JSON.stringify(this.props.location));
         speech.init({
             'volume': 1,
             'lang': 'en-US',
@@ -62,20 +72,13 @@ class Games extends Component {
             }
         }).then((data) => {
             console.log("Speech is read, voices are available", data)
+            // Loading Game
+            this.loadGame();
         }).catch(e => {
             console.error("An error occured while initializing : ", e)
         })
-    }
 
-    componentDidMount() {
-
-
-
-        // login come from Signin.js.  It is passed in props.location via the Redirect
-        console.log("componentDidMount: props.location: " + JSON.stringify(this.props.location));
-
-        // Loading Game
-        this.loadGame();
+        
     }
 
     componentDidUpdate(prevProps) {
@@ -146,7 +149,8 @@ class Games extends Component {
         }).catch(e => {
             console.error("An error occurred :", e)
         })
-        this.moreInfoPopoverSelect();
+        this.moreInfoPopoverSelect(currentCity);
+        this.getReviews(currentCity);
     }
 
     loadGame = () => {
@@ -210,15 +214,33 @@ class Games extends Component {
 
     }
 
-    moreInfoPopoverSelect = () => {
-        console.log("moreInfoPopoverSelect");
-        dbAPI.getPOI(this.state.currentCity)
+    moreInfoPopoverSelect = city => {
+        console.log("moreInfoPopoverSelect with " + city);
+        dbAPI.getPOI(city)
             .then(response => {
                 console.log("Back from triposo");
                 console.log(response.data);
                 let poiArray = [];
-                response.data.results.forEach( result => poiArray.push(result.name) );
+                
+                response.data.results.forEach( result => {
+                    let currentPOI = { name: result.name, link: result.attribution[0].url};
+                    poiArray.push(currentPOI) 
+                });
                 this.setState({ pointsOfInterest: poiArray });
+ 
+        });
+
+    }
+
+    getReviews = city => {
+        console.log("getReviews with " + city);
+        dbAPI.getCity(city)
+            .then(response => {
+                console.log("Back from getCity");
+                console.log(response.data);
+                let notesArray = [];
+                response.data[0].notes.forEach( result => notesArray.push(result.name) );
+                this.setState({ notes: notesArray });
  
         });
 

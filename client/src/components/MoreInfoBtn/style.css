@@ -1,3 +1,7 @@
 .more-info-btn {
     margin-left: 50px;
 }
+a {
+    float:left;
+    clear:left;
+}
