@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import LandmarkBtn from "../components/LandmarkBtn";
 import NextCityBtn from "../components/NextCityBtn";
 import MoreInfoBtn from "../components/MoreInfoBtn";
+import NotesBtn from "../components/NotesBtn";
 import ImgComp from "../components/ImgComp";
 import ClueComp from "../components/ClueComp";
 import Alert from "../components/StatusAlert";
@@ -24,6 +25,7 @@ class Games extends Component {
         maxCities: 0,
         landmarks: [],
         cities: [],
+        currentCity: null,
         clues: [],
         cardimages: [],
         correctCity: null,
@@ -35,6 +37,7 @@ class Games extends Component {
         statusText: null,
         statusColor: null,
         statusIsVisible: false,
+        pointsOfInterest: [],
         wins: 0,
         losses: 0,
         gameOn: true
@@ -45,11 +48,6 @@ class Games extends Component {
         super(props);
         this.state.wins = this.props.location.state.wins;
         this.state.losses = this.props.location.state.losses;
-    }
-
-    componentDidMount() {
-
-
         speech.init({
             'volume': 1,
             'lang': 'en-US',
@@ -67,6 +65,11 @@ class Games extends Component {
         }).catch(e => {
             console.error("An error occured while initializing : ", e)
         })
+    }
+
+    componentDidMount() {
+
+
 
         // login come from Signin.js.  It is passed in props.location via the Redirect
         console.log("componentDidMount: props.location: " + JSON.stringify(this.props.location));
@@ -109,6 +112,7 @@ class Games extends Component {
     setupCurrentClue = (citiesData, index) => {
         console.log("setupCurrentClue: index: " + index);
         let cityInfo = citiesData[index].summary;
+        let currentCity = citiesData[index].name;
         let landmarksArray = citiesData[index].places;
         let correctCity = citiesData[index + 1].name; // correct city is next one in array
         let cluesArray = citiesData[index + 1].clues; // need to look at next element to get clues for correct city
@@ -121,6 +125,7 @@ class Games extends Component {
 
         this.setState({
             cityInfoText: cityInfo,
+            currentCity: currentCity,
             landmarks: landmarksArray,
             correctCity: correctCity,
             clues: cluesArray,
@@ -133,6 +138,14 @@ class Games extends Component {
             image: aerialImage,  // set image of new city here
             imageText: ("Image of " + citiesData[index].name)
         });
+        speech.speak({
+            text: cityInfo,
+        }).then(() => {
+            console.log("Success !")
+        }).catch(e => {
+            console.error("An error occurred :", e)
+        })
+        this.moreInfoPopoverSelect();
     }
 
     loadGame = () => {
@@ -154,6 +167,7 @@ class Games extends Component {
                 this.setupCurrentClue(res.data, 0); // 0 is since this is the first clue (start with index 0)
             })
             .catch(err => console.log(err));
+           
     }
 
     // Button Selection Handlers Below:
@@ -192,6 +206,20 @@ class Games extends Component {
 
             });
 
+
+    }
+
+    moreInfoPopoverSelect = () => {
+        console.log("moreInfoPopoverSelect");
+        dbAPI.getPOI(this.state.currentCity)
+            .then(response => {
+                console.log("Back from triposo");
+                console.log(response.data);
+                let poiArray = [];
+                response.data.results.forEach( result => poiArray.push(result.name) );
+                this.setState({ pointsOfInterest: poiArray });
+ 
+        });
 
     }
 
@@ -246,6 +274,8 @@ class Games extends Component {
 
     }
 
+
+
     render() {
         return (
             <Container fluid>
@@ -285,12 +315,14 @@ class Games extends Component {
                             />
                             <MoreInfoBtn btn_text="More Info"
                                 id="MoreInfo"
-                                data-content="Link: <a href='https://www.triposo.com'>
-                                City tour </a>"
-                                location={this.state.correctCity}
-                                
+                                title={this.state.currentCity}
+                                text={this.state.pointsOfInterest}
+                                onSelect={this.moreInfoPopoverSelect}                               
                             />
-                            {/* comment/note button goes here */}
+                            <NotesBtn btn_text="Reviews"
+                                id="reviews"
+                                title="reviews"
+                                />
                         </ButtonToolbar>
                     </Col>
                     <Col size="md-6">
@@ -303,5 +335,6 @@ class Games extends Component {
         );
     }
 }
+
 
 export default Games;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
-import { Col, Row, Container } from "../components/Grid";
+import { Row, Container } from "../components/Grid";
 import Nav from "../components/Nav";
 import dbAPI from "../utils/dbAPI";
 import FacebookLoginButton from '../components/FacebookLoginButton';
@@ -26,7 +26,7 @@ class Signin extends Component {
                 console.log("loadUserData: " + JSON.stringify(res));
                 console.log("res=" + res + " res.data.length=" + res.data.length);
                 if (!res || !res.data.length) { // didn't find so create record
-                    let userData = { userid: userID, wins: 0, losses: 0 };
+                    let userData = { userid: userID, username: userName, wins: 0, losses: 0 };
                     dbAPI.createUser(userData)
                         .then(res =>
                             this.setState({
