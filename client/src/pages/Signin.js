@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import { Row, Container } from "../components/Grid";
 import Nav from "../components/Nav";
+import Globe from "../components/Globe";
 import dbAPI from "../utils/dbAPI";
 import FacebookLoginButton from '../components/FacebookLoginButton';
 //import Map from "../components/Map";
@@ -99,6 +100,7 @@ class Signin extends Component {
                 <Row>
                     <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start </button>
                 </Row>
+                <Globe/>
 
             </Container>
         );
