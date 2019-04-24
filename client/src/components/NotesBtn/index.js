@@ -5,7 +5,9 @@ import "./style.css";
 
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
-function MoreInfoBtn(props) {
+
+
+function NotesBtn(props) {
   return (
     <OverlayTrigger
       trigger="click"
@@ -15,18 +17,17 @@ function MoreInfoBtn(props) {
         <Popover
           id={props.id}
           title={props.title}
-          onSelect={(selection) => props.onSelect(selection)}
           
         >
           <strong>{props.text}</strong>
         </Popover>
       }
     >
-      <Button className="more-info-btn"> 
+      <Button className="notes-btn"> 
          {props.btn_text}</Button>
     </OverlayTrigger>
   );
 }
 
-export default MoreInfoBtn;
+export default NotesBtn;
 
