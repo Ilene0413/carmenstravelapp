@@ -85,10 +85,11 @@ class Games extends Component {
         }
     }
 
-    updateUser = () => {
+    updateUser = (wins, losses) => {
         let userData = { userid: this.props.location.state.userID,
-                        wins: this.state.wins,
-                        losses: this.state.losses 
+                        username: this.props.location.state.userName,
+                        wins: wins,
+                        losses: losses 
                     };
         dbAPI.updateUser(userData)
             .then(res => console.log("User Data Updated"))
@@ -133,7 +134,7 @@ class Games extends Component {
             cities: citiesArray,
             gameIndex: index,
             clueTitle: "Instruction",
-            clueText: "Select landmark to get first clue",
+            clueText: "Select landmark to get a clue. If unable to answer clue select another landmark for new clue.",
             clueImage: "./images/questionMark.png",
             image: aerialImage,  // set image of new city here
             imageText: ("Image of " + citiesData[index].name)
@@ -238,6 +239,7 @@ class Games extends Component {
                 // increment wins
                 let wins = this.state.wins;
                 wins++;
+                let losses = this.state.losses;
                 this.setState({
                     wins: wins,
                     statusText: "You Found Carmen!",
@@ -245,7 +247,7 @@ class Games extends Component {
                     statusIsVisible: true,
                     gameOn: false
                 });
-                this.updateUser(); // update wins in user db
+                this.updateUser(wins, losses); // update wins in user db
 
             }
             else { // load next city/landmark/clue
@@ -262,6 +264,7 @@ class Games extends Component {
             // give option to play again?
             let losses = this.state.losses;
             losses++;
+            let wins = this.state.wins;
             this.setState({
                 losses: losses,
                 statusText: "You lost!",
@@ -269,7 +272,7 @@ class Games extends Component {
                 statusIsVisible: true,
                 gameOn: false
             });
-            this.updateUser(); // update losses in user db
+            this.updateUser(wins, losses); // update losses in user db
         }
 
     }
@@ -280,7 +283,7 @@ class Games extends Component {
         return (
             <Container fluid>
                 <Nav wins={this.state.wins}
-                    user_name={this.props.location.state.userID}></Nav>
+                    user_name={this.props.location.state.userName}></Nav>
                 <Row>
                     <Col size="md-8">
                         <DesComp text={this.state.cityInfoText} />

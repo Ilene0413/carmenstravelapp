@@ -28,7 +28,7 @@ export default {
   },
   // Update user 
   updateUser(userData) {
-    return axios.put("/api/users", userData);
+    return axios.put("/api/users/" + userData.userid, userData);
   },
   // Create user
   createUser(userData) {

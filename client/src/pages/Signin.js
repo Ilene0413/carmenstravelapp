@@ -23,26 +23,26 @@ class Signin extends Component {
         console.log("loadUserData: userID=" + userID);
         dbAPI.getUser(userID)
             .then(res => {
-                console.log("loadUserData: " + JSON.stringify(res));
-                console.log("res=" + res + " res.data.length=" + res.data.length);
                 if (!res || !res.data.length) { // didn't find so create record
                     let userData = { userid: userID, username: userName, wins: 0, losses: 0 };
                     dbAPI.createUser(userData)
-                        .then(res =>
+                        .then(res => {
                             this.setState({
-                                userData: res.data[0],
+                                userData: res.data,
                                 buttonEnabled: true,
-                                userID: res.data[0].userid,
-                                wins: res.data[0].wins,
-                                losses: res.data[0].losses
+                                userName: res.data.username,
+                                userID: res.data.userid,
+                                wins: res.data.wins,
+                                losses: res.data.losses
                             })
-                        )
+                        })
                         .catch(err => (console.log("error creating User: " + err)));
                 }
                 else {
                     this.setState({
                         userData: res.data[0],
                         buttonEnabled: true,
+                        userName: res.data[0].username,
                         userID: res.data[0].userid,
                         wins: res.data[0].wins,
                         losses: res.data[0].losses
@@ -94,7 +94,7 @@ class Signin extends Component {
                     </FacebookLoginButton>
                 </Row>
                 <Row>
-                    <Nav wins={this.state.wins} user_name={this.state.userID}></Nav>
+                    <Nav wins={this.state.wins} user_name={this.state.userName}></Nav>
                 </Row>
                 <Row>
                     <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start </button>
