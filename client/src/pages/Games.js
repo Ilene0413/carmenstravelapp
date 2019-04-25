@@ -239,7 +239,10 @@ class Games extends Component {
                 console.log("Back from getCity");
                 console.log(response.data);
                 let notesArray = [];
-                response.data[0].notes.forEach( result => notesArray.push(result.name) );
+                response.data[0].notes.forEach( result => {
+                    let currentNote= {note: result.body, author: result.username};
+                    notesArray.push(currentNote) 
+                });
                 this.setState({ notes: notesArray });
  
         });
@@ -340,13 +343,13 @@ class Games extends Component {
                             />
                             <MoreInfoBtn btn_text="More Info"
                                 id="MoreInfo"
-                                title={this.state.currentCity}
+                                // title={this.state.currentCity}
                                 text={this.state.pointsOfInterest}
                                 onSelect={this.moreInfoPopoverSelect}                               
                             />
                             <NotesBtn btn_text="Reviews"
                                 id="reviews"
-                                title="reviews"
+                                text={this.state.notes}
                                 />
                         </ButtonToolbar>
                     </Col>

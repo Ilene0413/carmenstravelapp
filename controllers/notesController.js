@@ -20,7 +20,7 @@ module.exports = {
 
 	},
 	findMyNotes: function (req, res) {
-		db.Note.find( {userid: req.params.name})
+		db.Note.find( {username: req.params.name})
 			.sort({ date: -1 })
 			.then(dbModel=> res.json(dbModel))
 			.catch(err => res.json(err));
@@ -29,7 +29,7 @@ module.exports = {
 
 
 	create: function (req, res) {
-
+		console.log("In create note")
 
 		db.Note.create(req.body)
 

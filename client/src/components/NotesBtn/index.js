@@ -16,10 +16,13 @@ function NotesBtn(props) {
       overlay={
         <Popover
           id={props.id}
-          title={props.title}
+          title="Reviews"
           
         >
-          <strong>{props.text}</strong>
+          {props.text.map((review, index) => (
+
+            <p>"{review.note}" - {review.author}</p>
+          ))}
         </Popover>
       }
     >
