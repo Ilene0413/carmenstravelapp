@@ -19,7 +19,7 @@ function MoreInfoBtn(props) {
         >
           
           {props.text.map((poi, index) => (
-            <a href={poi.link} target="_blank">{poi.name}</a>
+            <a className="more-info-link" href={poi.link} target="_blank">{poi.name}</a>
            
             
           ))}

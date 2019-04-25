@@ -7,7 +7,7 @@ import MoreInfoBtn from "../components/MoreInfoBtn";
 import NotesBtn from "../components/NotesBtn";
 import ImgComp from "../components/ImgComp";
 import ClueComp from "../components/ClueComp";
-import Alert from "../components/StatusAlert";
+import StatusAlert from "../components/StatusAlert";
 import DesComp from "../components/DesComp";
 import dbAPI from "../utils/dbAPI";
 import { Col, Row, Container } from "../components/Grid";
@@ -354,7 +354,7 @@ class Games extends Component {
                         </ButtonToolbar>
                     </Col>
                     <Col size="md-6">
-                        <Alert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
+                        <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
                     </Col>
                 </Row>
 
