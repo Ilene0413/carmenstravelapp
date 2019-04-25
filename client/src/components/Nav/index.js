@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { Col, Row, Container } from "../Grid";
 
 function Nav(props) {
   return (
+    <Container fluid>
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <Link className="navbar-brand" to="/">
-        <img src="/images/redhat.jpg" alt="" style={{ width: 100, marginTop: -7 }} />
+        <img src="/images/carmensandiego.jpeg" alt="" style={{ width: 200, marginTop: -4 }} />
         Carmen's Travel App
       </Link>
       <div>
@@ -20,7 +22,7 @@ function Nav(props) {
         </ul>{props.children}
       </div>
     </nav>
+    </Container>
   );
 }
-
 export default Nav;
