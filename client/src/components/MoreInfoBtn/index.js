@@ -14,7 +14,7 @@ function MoreInfoBtn(props) {
       overlay={
         <Popover
           id={props.id}
-          title={props.title}
+          title="Other Landmarks"
         
         >
           

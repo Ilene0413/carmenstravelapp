@@ -14,7 +14,7 @@ var NoteSchema = new Schema({
     required: true
   },
   date: { type: Date, default: Date.now },
-  userid: {
+  username: {
     type: String,
     required: true
   }
