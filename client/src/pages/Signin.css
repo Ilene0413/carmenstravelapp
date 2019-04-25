@@ -13,8 +13,20 @@
 #start {
     color: white;
     font-size: 35px;
-    background-color: red;
+    background-image: url("./redhat.jpg");
     height: 100px;
-    width: 150px;
-    position: relative;
+    width: 235px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: right;
 }
+
+.row {
+    margin: 20px;
+}
+
+.fb-login-button {
+    float:right;
+}
+

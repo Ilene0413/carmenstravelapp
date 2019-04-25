@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
-import { Row, Container } from "../components/Grid";
+import { Col, Row, Container } from "../components/Grid";
 import Nav from "../components/Nav";
 import Globe from "../components/Globe";
 import dbAPI from "../utils/dbAPI";
 import FacebookLoginButton from '../components/FacebookLoginButton';
 //import Map from "../components/Map";
+import "./Signin.css";
+
 
 
 class Signin extends Component {
@@ -22,14 +24,16 @@ class Signin extends Component {
 
     loadUserData = (userName, userID) => {
         console.log("loadUserData: userID=" + userID);
+        console.log("loadUserData: userName=" + userName);
         dbAPI.getUser(userID)
             .then(res => {
+                console.log('Im here')
                 if (!res || !res.data.length) { // didn't find so create record
                     let userData = { userid: userID, username: userName, wins: 0, losses: 0 };
                     dbAPI.createUser(userData)
                         .then(res => {
                             this.setState({
-                                userData: res.data,
+                                   userData: res.data,
                                 buttonEnabled: true,
                                 userName: res.data.username,
                                 userID: res.data.userid,
@@ -90,17 +94,28 @@ class Signin extends Component {
             <Container fluid>
                 {this.renderRedirect()}
                 <Row>
-                    <FacebookLoginButton onLogin={this.onFacebookLogin}>
-                        <div className="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
+                <Nav wins={this.state.wins} user_name={this.state.userName}></Nav>
+                   
+                </Row>
+                <Row>
+                    <Col size="md-10"></Col>
+                    <Col size="md-2">
+                <FacebookLoginButton onLogin={this.onFacebookLogin}>
+                        <div className="fb-login-button" data-size="large" width="15px" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="1px"></div>
                     </FacebookLoginButton>
+                    </Col>
                 </Row>
                 <Row>
-                    <Nav wins={this.state.wins} user_name={this.state.userName}></Nav>
-                </Row>
-                <Row>
+                <Col size="md-10"></Col>
+                <Col size="md-2">
                     <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start </button>
+                </Col>
                 </Row>
-                <Globe/>
+                <Row>
+                    <Col size="md-12">
+                        <Globe/>
+                    </Col>
+                </Row>
 
             </Container>
         );
