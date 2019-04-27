@@ -64,7 +64,8 @@ class Signin extends Component {
             console.log("onFacebookLogin: setState: userID: " + resultObject.user.id);
             this.loadUserData(resultObject.user.name, resultObject.user.id);
         } else {
-            alert("Facebook login error");
+            //alert("Facebook login error");
+            console.log("Facebook login error");
         }
     }
 
@@ -108,7 +109,7 @@ class Signin extends Component {
                 <Row>
                 <Col size="md-10"></Col>
                 <Col size="md-2">
-                    <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
+                    <button onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
                 </Col>
                 </Row>
                 <Row>
