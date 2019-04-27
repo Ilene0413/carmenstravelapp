@@ -219,8 +219,8 @@ class Games extends Component {
 
     }
 
-    moreInfoPopoverSelect = city => {
-        
+    moreInfoPopoverSelect = () => {
+        let city = this.state.currentCity;
         console.log("moreInfoPopoverSelect with " + city);
         dbAPI.getPOI(city)
             .then(response => {
