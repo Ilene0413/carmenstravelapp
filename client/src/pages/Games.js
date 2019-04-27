@@ -158,6 +158,20 @@ class Games extends Component {
         this.getReviews(currentCity);
     }
 
+    jail = () => {
+        // let statusColor=""
+        if(this.state.statusColor=="success") {
+            return ( <div>
+                <img src="/images/carmeninjail.png" alt="" style={{"width":"490px", "height":"400px"}}>
+            </img> 
+                    
+            </div>
+            );
+        }
+        return <img src="/images/carmenlost.jpg" alt="" style={{"width":"490px", "height":"400px"}}>
+        </img>  
+    }
+
     loadGame = () => {
         console.log("loadGame");
         let number = 5; // number of documents (cities) to get back randomly
@@ -274,7 +288,7 @@ class Games extends Component {
                 let losses = this.state.losses;
                 this.setState({
                     wins: wins,
-                    statusText: "You Found Carmen!",
+                    statusText: "You Won!",
                     statusColor: "success",
                     statusIsVisible: true,
                     gameOn: false
@@ -342,10 +356,18 @@ class Games extends Component {
                         <ImgComp image={this.state.image} title={this.state.imageText} />
                     </Col>
                     <Col size="md-4">
-                        <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />
+                       {/* <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />*/}
                         {/* put description component here with text={this.state.cityInfoText}*/}
+                        
+                        {/* <jail statusColor={} /> */}
+                        {!this.state.gameOn ? 
+                            this.jail()
+                        : <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />
+                        }
+                    
                     </Col>
                 </Row>
+                
                 <Row>
                     <Col size="md-5">
                         <ButtonToolbar className="btn_toolbar">
@@ -401,12 +423,14 @@ class Games extends Component {
                             " "
                     }
                     </ButtonGroup>        
-                    </Col>
-
-                    <Col size="md-6">
+                    </Col>  
+                    
+                <Col size="md-5" style={{textAlign: "right"}}>
                        <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
-                    </Col>
-                </Row>
+                    </Col>   
+                    
+                      </Row>
+                     
                
             </Container >
         );
