@@ -11,7 +11,7 @@ function NextCityBtn(props) {
     <DropdownButton
       className="next-city-btn"
       drop="up"
-      variant="secondary"
+      variant="danger"
       title={props.btn_text}
       id={props.id}
       key="up"

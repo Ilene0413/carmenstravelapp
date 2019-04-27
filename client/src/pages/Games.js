@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { ButtonToolbar } from 'react-bootstrap';
+import { ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import Nav from "../components/Nav";
 import LandmarkBtn from "../components/LandmarkBtn";
 import NextCityBtn from "../components/NextCityBtn";
 import MoreInfoBtn from "../components/MoreInfoBtn";
+import AddReviewBtn from "../components/AddReviewBtn";
 import NotesBtn from "../components/NotesBtn";
 import ImgComp from "../components/ImgComp";
 import ClueComp from "../components/ClueComp";
@@ -12,6 +13,7 @@ import DesComp from "../components/DesComp";
 import dbAPI from "../utils/dbAPI";
 import { Col, Row, Container } from "../components/Grid";
 import Speech from 'speak-tts';
+import Input from "../components/Form"
 
 // state is below. I am setting some default values for testing components
 const speech = new Speech();
@@ -38,10 +40,12 @@ class Games extends Component {
         statusColor: null,
         statusIsVisible: false,
         pointsOfInterest: [],
+        notestext: "",
         notes: [],
         wins: 0,
         losses: 0,
-        gameOn: true
+        gameOn: true,
+        reviewsOpen: false
     };
 
     constructor(props) {
@@ -78,7 +82,7 @@ class Games extends Component {
             console.error("An error occured while initializing : ", e)
         })
 
-        
+
     }
 
     componentDidUpdate(prevProps) {
@@ -89,11 +93,12 @@ class Games extends Component {
     }
 
     updateUser = (wins, losses) => {
-        let userData = { userid: this.props.location.state.userID,
-                        username: this.props.location.state.userName,
-                        wins: wins,
-                        losses: losses 
-                    };
+        let userData = {
+            userid: this.props.location.state.userID,
+            username: this.props.location.state.userName,
+            wins: wins,
+            losses: losses
+        };
         dbAPI.updateUser(userData)
             .then(res => console.log("User Data Updated"))
             .catch(err => console.log(err));
@@ -149,7 +154,7 @@ class Games extends Component {
         }).catch(e => {
             console.error("An error occurred :", e)
         })
-        this.moreInfoPopoverSelect(currentCity);
+        //this.moreInfoPopoverSelect(currentCity);
         this.getReviews(currentCity);
     }
 
@@ -172,7 +177,7 @@ class Games extends Component {
                 this.setupCurrentClue(res.data, 0); // 0 is since this is the first clue (start with index 0)
             })
             .catch(err => console.log(err));
-           
+
     }
 
     // Button Selection Handlers Below:
@@ -215,22 +220,24 @@ class Games extends Component {
     }
 
     moreInfoPopoverSelect = city => {
+        
         console.log("moreInfoPopoverSelect with " + city);
         dbAPI.getPOI(city)
             .then(response => {
                 console.log("Back from triposo");
                 console.log(response.data);
                 let poiArray = [];
-                
-                response.data.results.forEach( result => {
-                    let currentPOI = { name: result.name, link: result.attribution[0].url};
-                    poiArray.push(currentPOI) 
+
+                response.data.results.forEach(result => {
+                    let currentPOI = { name: result.name, link: result.attribution[0].url };
+                    poiArray.push(currentPOI)
                 });
                 this.setState({ pointsOfInterest: poiArray });
- 
-        });
+
+            });
 
     }
+
 
     getReviews = city => {
         console.log("getReviews with " + city);
@@ -239,13 +246,13 @@ class Games extends Component {
                 console.log("Back from getCity");
                 console.log(response.data);
                 let notesArray = [];
-                response.data[0].notes.forEach( result => {
-                    let currentNote= {note: result.body, author: result.username};
-                    notesArray.push(currentNote) 
+                response.data[0].notes.forEach(result => {
+                    let currentNote = { note: result.body, author: result.username };
+                    notesArray.push(currentNote)
                 });
                 this.setState({ notes: notesArray });
- 
-        });
+
+            });
 
     }
 
@@ -302,9 +309,25 @@ class Games extends Component {
 
     }
 
+    handleInputChange = (event) => {
+        this.setState({ notestext: event.target.value });
+    }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(this.state.notestext);
+    }
+
+    openReviews = () => {
+        (this.state.reviewsOpen) ? this.setState({
+            reviewsOpen: false
+        }) : this.setState({
+            reviewsOpen: true
+        })
+    }
 
     render() {
+        console.log(this.state.currentCity);
         return (
             <Container fluid>
                 <Nav wins={this.state.wins}
@@ -324,41 +347,67 @@ class Games extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="md-6">
+                    <Col size="md-5">
                         <ButtonToolbar className="btn_toolbar">
-                            <LandmarkBtn btn_text="Landmarks"
-                                id="landmarks"
-                                landmark_1={this.state.landmarks[0]}
-                                landmark_2={this.state.landmarks[1]}
-                                landmark_3={this.state.landmarks[2]}
-                                onSelect={this.landmarkBtnSelect}
-                            />
-                            <NextCityBtn btn_text="Cities"
-                                id="Cities"
-                                city_1={this.state.cities[0]}
-                                city_2={this.state.cities[1]}
-                                city_3={this.state.cities[2]}
-                                city_4={this.state.cities[3]}
-                                onSelect={this.nextCityBtnSelect}
-                            />
-                            <MoreInfoBtn btn_text="More Info"
-                                id="MoreInfo"
-                                // title={this.state.currentCity}
-                                text={this.state.pointsOfInterest}
-                                onSelect={this.moreInfoPopoverSelect}                               
-                            />
-                            <NotesBtn btn_text="Reviews"
-                                id="reviews"
-                                text={this.state.notes}
+                            <ButtonGroup className="mr-2">
+                                <LandmarkBtn btn_text="Landmarks"
+                                    id="landmarks"
+                                    landmark_1={this.state.landmarks[0]}
+                                    landmark_2={this.state.landmarks[1]}
+                                    landmark_3={this.state.landmarks[2]}
+                                    onSelect={this.landmarkBtnSelect}
                                 />
+                            </ButtonGroup>
+                            <ButtonGroup className="mr-2">
+                                <NextCityBtn btn_text="Cities"
+                                    id="Cities"
+                                    city_1={this.state.cities[0]}
+                                    city_2={this.state.cities[1]}
+                                    city_3={this.state.cities[2]}
+                                    city_4={this.state.cities[3]}
+                                    onSelect={this.nextCityBtnSelect}
+                                />
+                            </ButtonGroup>
+                            <ButtonGroup className="mr-2">
+                                <MoreInfoBtn btn_text="More Info"
+                                    id="MoreInfo"
+                                    title={this.state.currentCity}
+                                    text={this.state.pointsOfInterest}
+                                    onClick={this.moreInfoPopoverSelect}
+                                />
+                            </ButtonGroup>
+
+                            <ButtonGroup className="mr-2">
+                                <NotesBtn btn_text="Reviews"
+                                    id="reviews"
+                                    text={this.state.notes}
+                                />
+                            </ButtonGroup>
                         </ButtonToolbar>
                     </Col>
+                    <Col size="md-2">
+                    <ButtonGroup className="mr-2" >
+                        <AddReviewBtn btn_text="Add a review"
+                            id="reviews"
+                            username={this.state.username}
+                            onClick={this.openReviews}
+                            currentCity={this.state.currentCity}
+                        />
+                   
+                    {
+                        (this.state.reviewsOpen) ?
+                            <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
+                            :
+                            " "
+                    }
+                    </ButtonGroup>        
+                    </Col>
+
                     <Col size="md-6">
-                        <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
+                       <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
                     </Col>
                 </Row>
-
-
+               
             </Container >
         );
     }

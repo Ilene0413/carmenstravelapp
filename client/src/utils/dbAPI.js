@@ -30,11 +30,11 @@ export default {
   updateUser(userData) {
     return axios.put("/api/users/" + userData.userid, userData);
   },
-  // Create user
-  createUser(userData) {
-    return axios.post("/api/users", userData);
+
+  //Create note
+  createNote(note) {
+    return axios.post("/api/notes", note);
   },
-  
   getPOI(city) {
     return axios.get("/api/triposo/poi/" + city);
 

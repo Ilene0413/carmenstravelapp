@@ -9,6 +9,7 @@ function MoreInfoBtn(props) {
   return (
     <OverlayTrigger
       trigger="click"
+      variant="danger"
       key="right"
       placement="right"
       overlay={
@@ -28,7 +29,7 @@ function MoreInfoBtn(props) {
         </Popover>
       }
     >
-      <Button className="more-info-btn"> 
+      <Button variant="danger" className="more-info-btn" onClick = {() => props.onClick()}> 
          {props.btn_text}</Button>
     </OverlayTrigger>
   );

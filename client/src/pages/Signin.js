@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import { Col, Row, Container } from "../components/Grid";
-import Nav from "../components/Nav";
+import Nav2 from "../components/Nav2";
 import Globe from "../components/Globe";
 import dbAPI from "../utils/dbAPI";
 import FacebookLoginButton from '../components/FacebookLoginButton';
@@ -94,7 +94,7 @@ class Signin extends Component {
             <Container fluid>
                 {this.renderRedirect()}
                 <Row>
-                <Nav wins={this.state.wins} user_name={this.state.userName}></Nav>
+                <Nav2 />
                    
                 </Row>
                 <Row>
@@ -108,7 +108,7 @@ class Signin extends Component {
                 <Row>
                 <Col size="md-10"></Col>
                 <Col size="md-2">
-                    <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start </button>
+                    <button disabled={!this.state.buttonEnabled} onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
                 </Col>
                 </Row>
                 <Row>

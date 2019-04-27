@@ -1,5 +1,6 @@
 .navbar-brand {
   font-size: 50px;
+  float: left;
 }
 
 .nav-item {
@@ -9,5 +10,7 @@
 }
 .bg-primary {
   width:100%;
+  text-align: left;
+  display: inline-block;
 }
 

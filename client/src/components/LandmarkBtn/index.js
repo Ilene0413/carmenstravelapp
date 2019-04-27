@@ -11,7 +11,7 @@ function LandmarkBtn(props) {
     <DropdownButton
       className="landmark-btn"
       drop="up"
-      variant="secondary"
+      variant="danger"
       title={props.btn_text}
       id={props.id}
       key="up"
