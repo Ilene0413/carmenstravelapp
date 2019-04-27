@@ -12,6 +12,7 @@ function NotesBtn(props) {
     <OverlayTrigger
       trigger="click"
       key="right"
+      variant="danger"
       placement="right"
       overlay={
         <Popover
@@ -23,10 +24,11 @@ function NotesBtn(props) {
 
             <p>"{review.note}" - {review.author}</p>
           ))}
+          
         </Popover>
       }
     >
-      <Button className="notes-btn"> 
+      <Button variant="danger" className="notes-btn"> 
          {props.btn_text}</Button>
     </OverlayTrigger>
   );

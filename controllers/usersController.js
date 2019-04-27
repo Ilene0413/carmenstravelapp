@@ -21,7 +21,10 @@ module.exports = {
     },
     findByName: function (req, res) {
         db.User.find({ userid: req.params.name })
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => {
+                console.log(dbModel)
+                res.json(dbModel)
+            })
 
             .catch(err => res.json(err));
     },
