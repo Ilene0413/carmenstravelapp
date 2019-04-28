@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-// import { hot } from "react-hot-loader/root";
-
-import { Viewer, Entity, ImageryLayer, PointGraphics, GeoJsonDataSource, Scene, Camera, CameraFlyTo } from "resium";
+import { Viewer } from "resium";
 import { Cartesian3, Cartesian2, Color, LabelStyle, VerticalOrigin } from "cesium";
+import ReactPlayer from 'react-player';
 
-// import ReactAudioPlayer from 'react-audio-player' -  used to play theme song
-// import ReactPlayer from 'react-player';
+const divStyle = {
+  width: 10,
+  height: 10
+};
 
 
 class Globe extends Component {
-  
+
+  // when the viewer mounts add points to the globe
+  //points are entities in cesium
 
   componentDidMount() {
-    // const { viewer } = this;
     if (this.viewer) {
       this.viewer.entities.add({
         name: "Athens",
@@ -492,15 +494,10 @@ class Globe extends Component {
       })
 
     }
-    // this.viewer.camera.flyTo({ text: "Somerset, NJ", destination: Cartesian3.fromDegrees(23.7257, 37.9715, 100)})
-    // for (let i = 500; i > 20; i--) {
-
-    //   this.viewer.camera.flyTo({ destination: Cartesian3.fromDegrees(23.7257, 37.9715, i*10000)})
-    // }
-
   }
 
 
+  // render the viewer if there is a cesium entity 
 
   render() {
     return (
@@ -509,8 +506,22 @@ class Globe extends Component {
         ref={e => {
           this.viewer = e ? e.cesiumElement : null;
         }}>
-        
-        
+        {/* <ReactPlayer url='https://www.pandora.com/search/where%20in%20the%20world%20is%20carmen%20sandiego/all' playing /> */}
+        <ReactPlayer url={[
+    {src:"/music/carmensandiegotheme.m4a"}]} playing style={divStyle} />
+        {/* <ReactPlayer url='https://www.youtube.com/watch?v=fTxzGY7YnZE' playing style={divStyle} /> */}
+        {/* <Sound
+      //  url="https://www.youtube.com/watch?v=fTxzGY7YnZE"
+      url="/music/carmensandiegotheme.m4a"
+      autoLoad ="true"
+      playStatus={Sound.status.PLAYING}
+      playFromPosition={300 /* in milliseconds */}
+        onLoading={this.handleSongLoading}
+        onPlaying={this.handleSongPlaying}
+        onFinishedPlaying={this.handleSongFinishedPlaying}
+        /> */}
+    
+    
       </Viewer>
     );
   }
