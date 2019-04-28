@@ -26,6 +26,7 @@ class Games extends Component {
         imageText: "Carmen San Diego",
         maxCities: 0,
         landmarks: [],
+        landmarkImages: [],
         cities: [],
         currentCity: null,
         clues: [],
@@ -123,6 +124,7 @@ class Games extends Component {
         let cityInfo = citiesData[index].summary;
         let currentCity = citiesData[index].name;
         let landmarksArray = citiesData[index].places;
+        let landmarkImagesArray = citiesData[index].placeImages;
         let correctCity = citiesData[index + 1].name; // correct city is next one in array
         let cluesArray = citiesData[index + 1].clues; // need to look at next element to get clues for correct city
         let imagesArray = citiesData[index].cardimages;
@@ -136,13 +138,14 @@ class Games extends Component {
             cityInfoText: cityInfo,
             currentCity: currentCity,
             landmarks: landmarksArray,
+            landmarkImages: landmarkImagesArray,
             correctCity: correctCity,
             clues: cluesArray,
             cardimages: imagesArray,
             cities: citiesArray,
             gameIndex: index,
             clueTitle: "Instruction",
-            clueText: "Select landmark to get a clue. If unable to answer clue select another landmark for new clue.",
+            clueText: "Select landmarks to get clues. Fly to the next city when you think you know where Carmen has gone.",
             clueImage: "./images/questionMark.png",
             image: aerialImage,  // set image of new city here
             imageText: ("Image of " + citiesData[index].name)
@@ -203,9 +206,13 @@ class Games extends Component {
             return;
         }
         let landmarkName = this.state.landmarks[selection];
+        let landmarkImage = this.state.landmarkImages[selection];
         console.log("Landmark name = " + landmarkName);
 
         // axios.get("/api/pexels/" + landmarkName)
+        if (landmarkImage === "") {
+
+       
         dbAPI.getLandmarkImage(landmarkName)
             .then(response => {
                 console.log("Back from pexels");
@@ -229,6 +236,27 @@ class Games extends Component {
                 })
 
             });
+        }
+        else {
+            this.setState({
+                selectedLandmark: selection,
+                image: this.state.landmarkImages[parseInt(selection)],
+                imageText: this.state.landmarks[parseInt(selection)],
+                clueImage: this.state.cardimages[parseInt(selection)],
+                clueTitle: "Clue from Witness",
+                clueText: this.state.clues[parseInt(selection)]
+
+            });
+            speech.speak({
+                text: this.state.clueText,
+            }).then(() => {
+                console.log("Success !")
+            }).catch(e => {
+                console.error("An error occurred :", e)
+            })
+
+
+        }
 
 
     }

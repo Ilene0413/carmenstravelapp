@@ -2,7 +2,6 @@
 const router = require("express").Router();
 const pexelController = require("../../controllers/pexelController");
 
-// Matches with "/api/cities"
 
 // Matches with "/api/pexels:name"
 router.route("/:name")
