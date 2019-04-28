@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { Col, Row, Container } from "../Grid";
+import { Container } from "../Grid";
 
 function Nav(props) {
   return (

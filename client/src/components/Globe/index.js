@@ -506,20 +506,9 @@ class Globe extends Component {
         ref={e => {
           this.viewer = e ? e.cesiumElement : null;
         }}>
-        {/* <ReactPlayer url='https://www.pandora.com/search/where%20in%20the%20world%20is%20carmen%20sandiego/all' playing /> */}
         <ReactPlayer url={[
     {src:"/music/carmensandiegotheme.m4a"}]} playing style={divStyle} />
         {/* <ReactPlayer url='https://www.youtube.com/watch?v=fTxzGY7YnZE' playing style={divStyle} /> */}
-        {/* <Sound
-      //  url="https://www.youtube.com/watch?v=fTxzGY7YnZE"
-      url="/music/carmensandiegotheme.m4a"
-      autoLoad ="true"
-      playStatus={Sound.status.PLAYING}
-      playFromPosition={300 /* in milliseconds */}
-        onLoading={this.handleSongLoading}
-        onPlaying={this.handleSongPlaying}
-        onFinishedPlaying={this.handleSongFinishedPlaying}
-        /> */}
     
     
       </Viewer>

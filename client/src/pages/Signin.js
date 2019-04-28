@@ -100,7 +100,7 @@ class Signin extends Component {
                     </Col>
                     <Col size="md-2">
                         <FacebookLoginButton onLogin={this.onFacebookLogin}>
-                            <div className="fb-login-button" data-size="large" width="25px" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="10px"></div>
+                            <div className="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="10px"></div>
                         </FacebookLoginButton>
                     </Col>
 
