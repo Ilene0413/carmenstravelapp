@@ -163,16 +163,16 @@ class Games extends Component {
 
     jail = () => {
         // let statusColor=""
-        if(this.state.statusColor=="success") {
-            return ( <div>
-                <img src="/images/carmeninjail.png" alt="" style={{"width":"490px", "height":"400px"}}>
-            </img> 
-                    
+        if (this.state.statusColor === "success") {
+            return (<div>
+                <img src="/images/carmeninjail.png" alt="" style={{ "width": "490px", "height": "400px" }}>
+                </img>
+
             </div>
             );
         }
-        return <img src="/images/carmenlost.jpg" alt="" style={{"width":"490px", "height":"400px"}}>
-        </img>  
+        return <img src="/images/carmenlost.jpg" alt="" style={{ "width": "490px", "height": "400px" }}>
+        </img>
     }
 
     loadGame = () => {
@@ -212,30 +212,30 @@ class Games extends Component {
         // axios.get("/api/pexels/" + landmarkName)
         if (landmarkImage === "") {
 
-       
-        dbAPI.getLandmarkImage(landmarkName)
-            .then(response => {
-                console.log("Back from pexels");
-                console.log(response.data);
 
-                this.setState({
-                    selectedLandmark: selection,
-                    image: response.data,
-                    imageText: this.state.landmarks[parseInt(selection)],
-                    clueImage: this.state.cardimages[parseInt(selection)],
-                    clueTitle: "Clue from Witness",
-                    clueText: this.state.clues[parseInt(selection)]
+            dbAPI.getLandmarkImage(landmarkName)
+                .then(response => {
+                    console.log("Back from pexels");
+                    console.log(response.data);
+
+                    this.setState({
+                        selectedLandmark: selection,
+                        image: response.data,
+                        imageText: this.state.landmarks[parseInt(selection)],
+                        clueImage: this.state.cardimages[parseInt(selection)],
+                        clueTitle: "Clue from Witness",
+                        clueText: this.state.clues[parseInt(selection)]
+
+                    });
+                    speech.speak({
+                        text: this.state.clueText,
+                    }).then(() => {
+                        console.log("Success !")
+                    }).catch(e => {
+                        console.error("An error occurred :", e)
+                    })
 
                 });
-                speech.speak({
-                    text: this.state.clueText,
-                }).then(() => {
-                    console.log("Success !")
-                }).catch(e => {
-                    console.error("An error occurred :", e)
-                })
-
-            });
         }
         else {
             this.setState({
@@ -384,20 +384,20 @@ class Games extends Component {
                         <ImgComp image={this.state.image} title={this.state.imageText} />
                     </Col>
                     <Col size="md-4">
-                       {/* <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />*/}
+                        {/* <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />*/}
                         {/* put description component here with text={this.state.cityInfoText}*/}
-                        
+
                         {/* <jail statusColor={} /> */}
-                        {!this.state.gameOn ? 
+                        {!this.state.gameOn ?
                             this.jail()
-                        : <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />
+                            : <ClueComp title={this.state.clueTitle} text={this.state.clueText} cardimage={this.state.clueImage} />
                         }
-                    
+
                     </Col>
                 </Row>
-                
+
                 <Row>
-                    <Col size="md-5">
+                    <Col size="md-3">
                         <ButtonToolbar className="btn_toolbar">
                             <ButtonGroup className="mr-2">
                                 <LandmarkBtn btn_text="Landmarks"
@@ -418,52 +418,57 @@ class Games extends Component {
                                     onSelect={this.nextCityBtnSelect}
                                 />
                             </ButtonGroup>
-                            <ButtonGroup className="mr-2">
-                                <MoreInfoBtn btn_text="More Info"
-                                    id="MoreInfo"
-                                    title={this.state.currentCity}
-                                    text={this.state.pointsOfInterest}
-                                    onClick={this.moreInfoPopoverSelect}
-                                />
-                            </ButtonGroup>
+                            </ButtonToolbar>
+                        </Col>
+                        <Col size="md-9">
+                            <ButtonToolbar>
+                                <div>
+                                <ButtonGroup className="mr-2">
+                                    <MoreInfoBtn btn_text="More Info"
+                                        id="MoreInfo"
+                                        title={this.state.currentCity}
+                                        text={this.state.pointsOfInterest}
+                                        onClick={this.moreInfoPopoverSelect}
+                                    />
+                                </ButtonGroup>
 
-                            <ButtonGroup className="mr-2">
-                                <NotesBtn btn_text="Reviews"
-                                    id="reviews"
-                                    text={this.state.notes}
-                                />
-                            </ButtonGroup>
-                        </ButtonToolbar>
-                    </Col>
-                    <Col size="md-2">
-                    <ButtonGroup className="mr-2" >
-                        <AddReviewBtn btn_text="Add a review"
-                            id="reviews"
-                            username={this.state.username}
-                            onClick={this.openReviews}
-                            currentCity={this.state.currentCity}
-                        />
-                   
-                    {
-                        (this.state.reviewsOpen) ?
-                            <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
-                            :
-                            " "
-                    }
-                    </ButtonGroup>        
-                    </Col>  
-                    
-                <Col size="md-5" style={{textAlign: "right"}}>
-                       <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
-                    </Col>   
-                    
-                      </Row>
-                     
-               
+                                <ButtonGroup className="mr-2">
+                                    <NotesBtn btn_text="Reviews"
+                                        id="reviews"
+                                        text={this.state.notes}
+                                    />
+                                </ButtonGroup>
+                                </div>
+                                <ButtonGroup className="mr-2" >
+                                    <AddReviewBtn btn_text="Add a review"
+                                        id="reviews"
+                                        username={this.state.username}
+                                        onClick={this.openReviews}
+                                        currentCity={this.state.currentCity}
+                                    />
+
+                                    {
+                                        (this.state.reviewsOpen) ?
+                                            <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
+                                            :
+                                            " "
+                                    }
+                                </ButtonGroup>
+                            </ButtonToolbar>
+
+                        </Col>
+
+                        <Col size="md-5" style={{ textAlign: "right" }}>
+                            <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
+                        </Col>
+
+                </Row>
+
+
             </Container >
-        );
-    }
-}
-
-
+                );
+            }
+        }
+        
+        
 export default Games;

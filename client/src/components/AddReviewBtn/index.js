@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Card, Collapse, Button } from 'react-bootstrap';
+import React from "react";
+import { Collapse, Button } from 'react-bootstrap';
 import dbAPI from "../../utils/dbAPI"
 import "./style.css";
 
@@ -46,7 +46,7 @@ class AddReviewBtn extends React.Component {
     const { open } = this.state;
     return (
       <div>
-        <Button variant="danger"
+        <Button variant="info"
           onClick={() => this.setState({ open: !open })}
           aria-controls="example-collapse-text"
           aria-expanded={open}

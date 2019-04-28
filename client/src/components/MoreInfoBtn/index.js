@@ -9,7 +9,7 @@ function MoreInfoBtn(props) {
   return (
     <OverlayTrigger
       trigger="click"
-      variant="danger"
+      variant="info"
       key="right"
       placement="right"
       overlay={
@@ -20,7 +20,7 @@ function MoreInfoBtn(props) {
         >
           
           {props.text.map((poi, index) => (
-            <a className="more-info-link" href={poi.link} target="_blank">{poi.name}</a>
+            <a className="more-info-link" href={poi.link} target="_blank" rel="noopener noreferrer">{poi.name}</a>
            
             
           ))}
@@ -29,7 +29,7 @@ function MoreInfoBtn(props) {
         </Popover>
       }
     >
-      <Button variant="danger" className="more-info-btn" onClick = {() => props.onClick()}> 
+      <Button variant="info" className="more-info-btn" onClick = {() => props.onClick()}> 
          {props.btn_text}</Button>
     </OverlayTrigger>
   );
