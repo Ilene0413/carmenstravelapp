@@ -164,7 +164,7 @@ const citySeed = [
         latitude: 55.7558,
         longitude: 37.6173,
         aerialimage: "https://www.rusalia.com/wp-content/uploads/2016/07/Plaza-Roja-de-Moscu.jpg",
-        places: ["Red Square", "Kremlin", "Cathedral of Christ The Savior"],
+        places: ["Red Square", "St. Basil's Cathedral", "Cathedral of Christ The Savior"],
         placeImages : [ 
             "https://jooinn.com/images/red-square-3.jpg", 
             "https://www.dookinternational.com/blog/wp-content/uploads/2016/11/Moscow-Kremlin.jpg", 

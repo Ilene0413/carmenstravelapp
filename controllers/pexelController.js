@@ -12,8 +12,8 @@ module.exports = {
 
 		pexelsClient.search(req.params.name,1	,1)
 			.then(function(result) {
-				console.log(result);
-				console.log(result.photos[0].src.original);
+				// console.log(result);
+				// console.log(result.photos[0].src.original);
 				res.send(result.photos[0].src.original);
 
 			}).catch(function(e) {
