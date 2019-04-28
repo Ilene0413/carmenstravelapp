@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import { Col, Row, Container } from "../components/Grid";
-import Nav2 from "../components/Nav2";
 import Globe from "../components/Globe";
 import dbAPI from "../utils/dbAPI";
 import FacebookLoginButton from '../components/FacebookLoginButton';
-//import Map from "../components/Map";
+import { Link } from "react-router-dom";
 import "./Signin.css";
 
 
@@ -23,17 +22,14 @@ class Signin extends Component {
     }
 
     loadUserData = (userName, userID) => {
-        console.log("loadUserData: userID=" + userID);
-        console.log("loadUserData: userName=" + userName);
         dbAPI.getUser(userID)
             .then(res => {
-                console.log('Im here')
                 if (!res || !res.data.length) { // didn't find so create record
                     let userData = { userid: userID, username: userName, wins: 0, losses: 0 };
                     dbAPI.createUser(userData)
                         .then(res => {
                             this.setState({
-                                   userData: res.data,
+                                userData: res.data,
                                 buttonEnabled: true,
                                 userName: res.data.username,
                                 userID: res.data.userid,
@@ -58,10 +54,7 @@ class Signin extends Component {
     };
 
     onFacebookLogin = (loginStatus, resultObject) => {
-        console.log("onFacebookLogin");
         if (loginStatus === true) {
-            console.log("onFacebookLogin: setState: user.name: " + resultObject.user.name);
-            console.log("onFacebookLogin: setState: userID: " + resultObject.user.id);
             this.loadUserData(resultObject.user.name, resultObject.user.id);
         } else {
             //alert("Facebook login error");
@@ -70,22 +63,21 @@ class Signin extends Component {
     }
 
     startBtnClicked = () => {
-        console.log("startBtnClicked")
         this.setState({ redirect: true });
     }
 
     renderRedirect = () => {
-        console.log("renderRedirect");
         if (this.state.redirect) {
-            console.log("calling redirect");
             //return <Redirect to='/games' />
             return <Redirect to={{
                 pathname: "/games",
-                state: {userData: this.state.userData,
-                        userName: this.state.userName,
-                        userID: this.state.userID,
-                        wins: this.state.wins,
-                        losses: this.state.losses}
+                state: {
+                    userData: this.state.userData,
+                    userName: this.state.userName,
+                    userID: this.state.userID,
+                    wins: this.state.wins,
+                    losses: this.state.losses
+                }
             }} ></Redirect>
         }
     }
@@ -95,26 +87,31 @@ class Signin extends Component {
             <Container fluid>
                 {this.renderRedirect()}
                 <Row>
-                <Nav2 />
-                   
-                </Row>
-                <Row>
-                    <Col size="md-10"></Col>
-                    <Col size="md-2">
-                <FacebookLoginButton onLogin={this.onFacebookLogin}>
-                        <div className="fb-login-button" data-size="large" width="15px" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="1px"></div>
-                    </FacebookLoginButton>
+                    <Col size="md-8">
+                        <h1 className="sigin navbar navbar-expand-sm navbar-dark bg-primary">
+                            <Link className="navbar-brand" to="/">
+                                <img className="pull-left" id="logo" src="/images/carmensandiego.jpeg" alt="" style={{ width: 100, marginTop: -4 }} />
+                                Carmen's Travel App
+                             </Link>
+                            <div>
+
+                            </div>
+                        </h1>
                     </Col>
-                </Row>
-                <Row>
-                <Col size="md-10"></Col>
-                <Col size="md-2">
-                    <button onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
-                </Col>
+                    <Col size="md-2">
+                        <FacebookLoginButton onLogin={this.onFacebookLogin}>
+                            <div className="fb-login-button" data-size="large" width="25px" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="10px"></div>
+                        </FacebookLoginButton>
+                    </Col>
+
+                    <Col size="md-2">
+                        <button onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
+                    </Col>
+
                 </Row>
                 <Row>
                     <Col size="md-12">
-                        <Globe/>
+                        <Globe />
                     </Col>
                 </Row>
 
