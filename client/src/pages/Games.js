@@ -225,18 +225,20 @@ class Games extends Component {
                         clueImage: this.state.cardimages[parseInt(selection)],
                         clueTitle: "Clue from Witness",
                         clueText: this.state.clues[parseInt(selection)]
-
+                    }, () => {
+                        speech.speak({
+                            text: this.state.clueText,
+                        }).then(() => {
+                            console.log("Success !");
+                        }).catch(e => {
+                            console.error("An error occurred :", e);
+                        })
                     });
-                    speech.speak({
-                        text: this.state.clueText,
-                    }).then(() => {
-                        console.log("Success !")
-                    }).catch(e => {
-                        console.error("An error occurred :", e)
-                    })
+
 
                 });
         }
+
         else {
             this.setState({
                 selectedLandmark: selection,
@@ -246,19 +248,18 @@ class Games extends Component {
                 clueTitle: "Clue from Witness",
                 clueText: this.state.clues[parseInt(selection)]
 
+            }, () => {
+                speech.speak({
+                    text: this.state.clueText,
+                }).then(() => {
+                    console.log("Success !");
+                }).catch(e => {
+                    console.error("An error occurred :", e);
+                })
             });
-            speech.speak({
-                text: this.state.clueText,
-            }).then(() => {
-                console.log("Success !")
-            }).catch(e => {
-                console.error("An error occurred :", e)
-            })
 
 
         }
-
-
     }
 
     moreInfoPopoverSelect = () => {
@@ -418,11 +419,11 @@ class Games extends Component {
                                     onSelect={this.nextCityBtnSelect}
                                 />
                             </ButtonGroup>
-                            </ButtonToolbar>
-                        </Col>
-                        <Col size="md-9">
-                            <ButtonToolbar>
-                                <div>
+                        </ButtonToolbar>
+                    </Col>
+                    <Col size="md-9">
+                        <ButtonToolbar>
+                            <div>
                                 <ButtonGroup className="mr-2">
                                     <MoreInfoBtn btn_text="More Info"
                                         id="MoreInfo"
@@ -438,37 +439,37 @@ class Games extends Component {
                                         text={this.state.notes}
                                     />
                                 </ButtonGroup>
-                                </div>
-                                <ButtonGroup className="mr-2" >
-                                    <AddReviewBtn btn_text="Add a review"
-                                        id="reviews"
-                                        username={this.state.username}
-                                        onClick={this.openReviews}
-                                        currentCity={this.state.currentCity}
-                                    />
+                            </div>
+                            <ButtonGroup className="mr-2" >
+                                <AddReviewBtn btn_text="Add a review"
+                                    id="reviews"
+                                    username={this.state.username}
+                                    onClick={this.openReviews}
+                                    currentCity={this.state.currentCity}
+                                />
 
-                                    {
-                                        (this.state.reviewsOpen) ?
-                                            <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
-                                            :
-                                            " "
-                                    }
-                                </ButtonGroup>
-                            </ButtonToolbar>
+                                {
+                                    (this.state.reviewsOpen) ?
+                                        <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
+                                        :
+                                        " "
+                                }
+                            </ButtonGroup>
+                        </ButtonToolbar>
 
-                        </Col>
+                    </Col>
 
-                        <Col size="md-5" style={{ textAlign: "right" }}>
-                            <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
-                        </Col>
+                    <Col size="md-5" style={{ textAlign: "right" }}>
+                        <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
+                    </Col>
 
                 </Row>
 
 
             </Container >
-                );
-            }
-        }
-        
-        
+        );
+    }
+}
+
+
 export default Games;
