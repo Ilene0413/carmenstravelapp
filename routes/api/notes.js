@@ -18,9 +18,6 @@ router.route("/:name")
 
 
 
-
-
-
 // Exporting
 
 module.exports = router;

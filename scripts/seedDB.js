@@ -6,7 +6,7 @@ const db = require("../models");
 
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost:27017/carmendb",
-    { useNewUrlParser: true }
+     { useNewUrlParser: true }
 );
 
 const citySeed = [
@@ -17,6 +17,11 @@ const citySeed = [
         longitude: 2.349014,
         aerialimage: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/paris-aerial-view-philipp-gtze.jpg",
         places: ["Eiffel Tower", "The Louvre Museum", "Arc de Triomphe"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
         clues: ["She said she's headed to a city on the River Seine.",
             "Ever since the movie, she's been dying to check out the Moulin Rouge.",
             "She mentioned she was going to Bruand's lock museum. I told her that I'd heard it was closed. I think somebody lost the key."],
@@ -33,6 +38,11 @@ const citySeed = [
         longitude: -0.1277,
         aerialimage: "https://cdn.theatlantic.com/assets/media/img/photo/2017/01/a-dizzying-view-of-london/02JasonHawkes-6494/main_900.jpg",
         places: ["Stonehenge", "Westminster Abbey", "Tower of London"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
         clues: ["She asked a lot of questions about the Changing of the Guard - like how many minutes she'd have to sneak by.",
             "She told me she was rushing to make an audition somewhere along Shaftesbury Avenue.",
             "She was bragging about finding season tickets at Wembley Stadium"],
@@ -49,6 +59,11 @@ const citySeed = [
         longitude: 12.49564,
         aerialimage: "http://cdn7.dissolve.com/p/D736_97_032/D736_97_032_0004_600.jpg",
         places: ["Trevi Fountain", "St. Peter's Basilica", "Pantheon"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
         clues: ["I think she said she was headed for what's it, the fountain with the big pine cone on top of it.",
             "I think your suspect planned on setting a few fires, so if you see one, call the firemen! Don't fiddle while the city burns",
             "I told her to be sure to see Trajan's Column, and she asked me which newspaper it's in."],
@@ -64,13 +79,18 @@ const citySeed = [
         latitude: 12.49564,
         longitude: 2.16835,
         aerialimage: "https://ak8.picdn.net/shutterstock/videos/6957538/thumb/1.jpg",
-        places: ["Basilica of the Sagrada Familia", "Casa Batllo", "Park Guell"],
+        places: ["Basilica of the Sagrada Familia", "Casa Mila", "Museo National De Arte"],
+        placeImages : [ 
+            "", 
+            "https://www.barcelona-life.com/wp-content/uploads/2018/03/casa-mila-tickets-barcelona.jpg", 
+            ""
+        ],
         clues: ["I heard she was watching a flamenco show at Cordobes",
             "I heard her asking for directions to Casa de la Ciutat",
             "I know the city where your henchwoman fled. The place isn't really to my tastes. I find it rather 'Gaudi'."],
         cardimages: ["http://www.barcelona-access.com/files/9072-7-imatge/Sagrada_Familia_Barcelona.jpg",
-            "https://cdn.getyourguide.com/img/tour_img-308158-148.jpg",
-            "https://i.pinimg.com/originals/f3/30/5f/f3305f1e7bb43a5f3354a9978fcdec4d.jpg"],
+            "http://www.littleblackshell.com/wp-content/uploads/2017/06/CasaMila-1440x2016.jpg",
+            "https://media-cdn.tripadvisor.com/media/photo-s/01/50/ff/e3/museo-national-de-arte.jpg"],
         choices: ["Morocco", "Rio de Janeiro", "Caracas"],
         notes: []
     },
@@ -81,6 +101,11 @@ const citySeed = [
         longitude: 23.7364,
         aerialimage: "https://i.ytimg.com/vi/W1Rhr11C5fw/maxresdefault.jpg",
         places: ["Acropolis of Athens", "Parthenon", "Mount Lycabettus"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
         clues: ["Your henchwoman's hiding in a temple that was built two-and-a-half millenia ago. Boy I do hope she doesn't break anything",
             "Your perp is headed to the Parthenon! Don't let V.I.L.E steal it!",
             "I heard her mention she was craving Baklava"],
@@ -98,6 +123,11 @@ const citySeed = [
         longitude: 139.6503,
         aerialimage: "https://i0.nicepik.com/files/923/673/159/city-building-rooftop-aerial.jpg",
         places: ["Tokyo Skytree", "Senso-ji", "Tokyo Tower"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
         clues: ["She only eats the freshest sushi. I'll bet you'll find her at the crack of dawn in Tsukiji",
             "Much to her delight, she got to ride the Pokemon Yanamote Train into town.",
             "She told me she's going to the city that used to be known as Edo."],
@@ -108,19 +138,24 @@ const citySeed = [
         notes: []
     },
     {
-        name: "Agra",
-        summary: "Agra is a city in northern India’s Uttar Pradesh state. It's home to the iconic Taj Mahal",
-        latitude: 27.1767,
-        longitude: 78.0081,
-        aerialimage: "https://i.ytimg.com/vi/B9H9iLwgriw/maxresdefault.jpg",
-        places: ["Taj Mahal", "Agra Fort", "Tomb of Akbar the Great"],
-        clues: ["For her rendezvous, she had to slip through the Elephant Gate - in spite of her crippling fear of elephants",
-            "She was looking for the perfect garden where she could relax by the River Yamuna.",
-            "She asked where to get the best Tandoori Chicken"],
-        cardimages: ["https://i.pinimg.com/originals/bd/5f/33/bd5f337ac9aef9745b25fac395af0af5.jpg",
-            "https://www.thequirkytraveller.com/wp-content/uploads/woman-sitting.jpg",
-            "https://i.ytimg.com/vi/tLjTLu2ztp0/maxresdefault.jpg"],
-        choices: ["Sri Lanka", "Nepal", "Bangkok"],
+        name: "Berlin",
+        summary: "Berlin is best known for its historical associations as the German capital, internationalism and tolerance, lively nightlife, its many cafés, clubs, bars, street art, and numerous museums, palaces, and other sites of historic interest.",
+        latitude: 52.5200,
+        longitude: 13.4050,
+        aerialimage: "https://ak4.picdn.net/shutterstock/videos/5305934/thumb/1.jpg",
+        places: ["Brandenburg Gate", "Reichstag Building", "Berlin Cathedral Church"],
+        placeImages : [ 
+            "", 
+            "", 
+            ""
+        ],
+        clues: ["She told me she likes a little light opera, so I sent her to the Komische Oper.",
+            "She wants to study some spy tricks at Stasi - Die Ausstellung.",
+            "She told me she was craving Wiener Schnitzel."],
+        cardimages: ["http://www.nicoleisthenewblack.com/wp-content/uploads/2012/04/Brandenburg_Gate_in_Berlin.jpg",
+            "http://www.mysinchew.com/files/reich1.jpg",
+            "https://thelovedoeschallenge.files.wordpress.com/2016/05/img_4059.jpg"],
+        choices: ["Warsaw", "Prague", "Vienna"],
         notes: []
     },
     {
@@ -129,13 +164,18 @@ const citySeed = [
         latitude: 55.7558,
         longitude: 37.6173,
         aerialimage: "https://www.rusalia.com/wp-content/uploads/2016/07/Plaza-Roja-de-Moscu.jpg",
-        places: ["Red Square", "The Kremlin", "Bolshoi Theatre"],
+        places: ["Red Square", "Kremlin", "Cathedral of Christ The Savior"],
+        placeImages : [ 
+            "https://jooinn.com/images/red-square-3.jpg", 
+            "https://www.dookinternational.com/blog/wp-content/uploads/2016/11/Moscow-Kremlin.jpg", 
+            "https://i1.wp.com/www.awaywithmaja.com/wp-content/uploads/2016/06/DSCN6913-1024x768.jpg"
+        ],
         clues: ["She asked me for a recipe for Borscht.",
             "I told her she could leave the city on the Trans-Siberian Railway.",
             "If it's May Day, look for her in the Square. She'll be wearing red, of course."],
         cardimages: ["https://i.ytimg.com/vi/j2vxXn2cwFE/maxresdefault.jpg",
-                    "http://mm.servidornoticias.com/photos/w_720/9b6/13960789w.jpg",
-                    "http://chtodelat.files.wordpress.com/2013/03/blyadstvo.jpg"],
+                    "http://www.heartmybackpack.com/wp-content/uploads/2015/03/IMG_82881.jpg", 
+                    "http://arhiva.dalje.com/slike/slike_3/r1/g2012/m01/ox281286719037638941.jpg"],
         choices: ["Kiev", "Warsaw", "Helsinki"],
         notes: []
     }
@@ -150,9 +190,11 @@ db.City.remove({})
     .then(() => db.City.collection.insertMany(citySeed))
     .then(data => {
         console.log(data.result.n + " records inserted!");
+        process.exit(0);
     })
     .catch(err => {
         console.error(err);
         process.exit(1);
     });
+
 
