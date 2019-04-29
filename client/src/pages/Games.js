@@ -281,7 +281,6 @@ class Games extends Component {
 
     }
 
-
     getReviews = () => {
         let city = this.state.currentCity;
         // console.log("getReviews with " + city);
