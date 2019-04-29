@@ -158,7 +158,7 @@ class Games extends Component {
             console.error("An error occurred :", e)
         })
         //this.moreInfoPopoverSelect(currentCity);
-        this.getReviews(currentCity);
+        // this.getReviews(currentCity);
     }
 
     jail = () => {
@@ -264,11 +264,11 @@ class Games extends Component {
 
     moreInfoPopoverSelect = () => {
         let city = this.state.currentCity;
-        console.log("moreInfoPopoverSelect with " + city);
+        // console.log("moreInfoPopoverSelect with " + city);
         dbAPI.getPOI(city)
             .then(response => {
-                console.log("Back from triposo");
-                console.log(response.data);
+                // console.log("Back from triposo");
+                // console.log(response.data);
                 let poiArray = [];
 
                 response.data.results.forEach(result => {
@@ -282,12 +282,13 @@ class Games extends Component {
     }
 
 
-    getReviews = city => {
-        console.log("getReviews with " + city);
+    getReviews = () => {
+        let city = this.state.currentCity;
+        // console.log("getReviews with " + city);
         dbAPI.getCity(city)
             .then(response => {
-                console.log("Back from getCity");
-                console.log(response.data);
+                // console.log("Back from getCity");
+                // console.log(response.data);
                 let notesArray = [];
                 response.data[0].notes.forEach(result => {
                     let currentNote = { note: result.body, author: result.username };
@@ -437,6 +438,7 @@ class Games extends Component {
                                     <NotesBtn btn_text="Reviews"
                                         id="reviews"
                                         text={this.state.notes}
+                                        onClick={this.getReviews}
                                     />
                                 </ButtonGroup>
                             </div>

@@ -28,7 +28,8 @@ function NotesBtn(props) {
         </Popover>
       }
     >
-      <Button variant="info" className="notes-btn"> 
+
+    <Button variant="info" className="notes-btn" onClick = {() => props.onClick()}>  
          {props.btn_text}</Button>
     </OverlayTrigger>
   );
