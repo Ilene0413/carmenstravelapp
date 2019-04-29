@@ -158,25 +158,24 @@ class Games extends Component {
             console.error("An error occurred :", e)
         })
         //this.moreInfoPopoverSelect(currentCity);
-        // this.getReviews(currentCity);
+        this.getReviews(currentCity);
     }
 
     jail = () => {
         // let statusColor=""
         if (this.state.statusColor === "success") {
             return (<div>
-                <img src="/images/carmeninjail.png" alt="" style={{ "width": "490px", "height": "400px" }}>
+                <img src="/images/Carmen-Jail-3.gif" alt="" align="middle" style={{ "width": "490px", "height": "627px" }}>
                 </img>
 
             </div>
             );
         }
-        return <img src="/images/carmenlost.jpg" alt="" style={{ "width": "490px", "height": "400px" }}>
+        return <img src="/images/carmen-in-Paris.gif" alt="" align="middle" style={{ "width": "490px", "height": "630px" }}>
         </img>
     }
 
     loadGame = () => {
-        console.log("loadGame");
         let number = 5; // number of documents (cities) to get back randomly
         dbAPI.getCitiesRandom(number)
             .then(res => {
@@ -199,7 +198,6 @@ class Games extends Component {
 
     // Button Selection Handlers Below:
     landmarkBtnSelect = selection => {
-        console.log("landmarkBtnSelection: Selection: " + selection);
 
         if (this.state.gameOn === false) {
             console.log("landmarkBtnSelection: game ended and user didn't ask to restart");
@@ -225,20 +223,18 @@ class Games extends Component {
                         clueImage: this.state.cardimages[parseInt(selection)],
                         clueTitle: "Clue from Witness",
                         clueText: this.state.clues[parseInt(selection)]
-                    }, () => {
-                        speech.speak({
-                            text: this.state.clueText,
-                        }).then(() => {
-                            console.log("Success !");
-                        }).catch(e => {
-                            console.error("An error occurred :", e);
-                        })
-                    });
 
+                    });
+                    speech.speak({
+                        text: this.state.clueText,
+                    }).then(() => {
+                        console.log("Success !")
+                    }).catch(e => {
+                        console.error("An error occurred :", e)
+                    })
 
                 });
         }
-
         else {
             this.setState({
                 selectedLandmark: selection,
@@ -248,27 +244,28 @@ class Games extends Component {
                 clueTitle: "Clue from Witness",
                 clueText: this.state.clues[parseInt(selection)]
 
-            }, () => {
-                speech.speak({
-                    text: this.state.clueText,
-                }).then(() => {
-                    console.log("Success !");
-                }).catch(e => {
-                    console.error("An error occurred :", e);
-                })
             });
+            speech.speak({
+                text: this.state.clueText,
+            }).then(() => {
+                console.log("Success !")
+            }).catch(e => {
+                console.error("An error occurred :", e)
+            })
 
 
         }
+
+
     }
 
     moreInfoPopoverSelect = () => {
         let city = this.state.currentCity;
-        // console.log("moreInfoPopoverSelect with " + city);
+        console.log("moreInfoPopoverSelect with " + city);
         dbAPI.getPOI(city)
             .then(response => {
-                // console.log("Back from triposo");
-                // console.log(response.data);
+                console.log("Back from triposo");
+                console.log(response.data);
                 let poiArray = [];
 
                 response.data.results.forEach(result => {
@@ -281,13 +278,13 @@ class Games extends Component {
 
     }
 
-    getReviews = () => {
-        let city = this.state.currentCity;
-        // console.log("getReviews with " + city);
+
+    getReviews = city => {
+        console.log("getReviews with " + city);
         dbAPI.getCity(city)
             .then(response => {
-                // console.log("Back from getCity");
-                // console.log(response.data);
+                console.log("Back from getCity");
+                console.log(response.data);
                 let notesArray = [];
                 response.data[0].notes.forEach(result => {
                     let currentNote = { note: result.body, author: result.username };
@@ -419,11 +416,11 @@ class Games extends Component {
                                     onSelect={this.nextCityBtnSelect}
                                 />
                             </ButtonGroup>
-                        </ButtonToolbar>
-                    </Col>
-                    <Col size="md-9">
-                        <ButtonToolbar>
-                            <div>
+                            </ButtonToolbar>
+                        </Col>
+                        <Col size="md-4">
+                            <ButtonToolbar>
+                                <div>
                                 <ButtonGroup className="mr-2">
                                     <MoreInfoBtn btn_text="More Info"
                                         id="MoreInfo"
@@ -437,40 +434,37 @@ class Games extends Component {
                                     <NotesBtn btn_text="Reviews"
                                         id="reviews"
                                         text={this.state.notes}
-                                        onClick={this.getReviews}
                                     />
                                 </ButtonGroup>
-                            </div>
-                            <ButtonGroup className="mr-2" >
-                                <AddReviewBtn btn_text="Add a review"
-                                    id="reviews"
-                                    username={this.state.username}
-                                    onClick={this.openReviews}
-                                    currentCity={this.state.currentCity}
-                                />
+                                </div>
+                                <ButtonGroup className="mr-2" >
+                                    <AddReviewBtn btn_text="Add a review"
+                                        id="reviews"
+                                        username={this.state.username}
+                                        onClick={this.openReviews}
+                                        currentCity={this.state.currentCity}
+                                    />
 
-                                {
-                                    (this.state.reviewsOpen) ?
-                                        <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
-                                        :
-                                        " "
-                                }
-                            </ButtonGroup>
-                        </ButtonToolbar>
+                                    {
+                                        (this.state.reviewsOpen) ?
+                                            <Input onChange={this.handleInputChange} onClick={this.handleInputChange.handleSubmit} />
+                                            :
+                                            " "
+                                    }
+                                </ButtonGroup>
+                            </ButtonToolbar>
 
-                    </Col>
+                        </Col>
 
-                    <Col size="md-5" style={{ textAlign: "right" }}>
-                        <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
-                    </Col>
+                        <Col size="md-5" style={{ textAlign: "right" }}>
+                            <StatusAlert color={this.state.statusColor} text={this.state.statusText} isVisible={this.state.statusIsVisible} />
+                        </Col>
 
                 </Row>
-
-
             </Container >
-        );
-    }
-}
-
-
+                );
+            }
+        }
+        
+        
 export default Games;
