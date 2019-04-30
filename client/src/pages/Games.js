@@ -81,6 +81,7 @@ class Games extends Component {
             this.loadGame();
         }).catch(e => {
             console.error("An error occured while initializing : ", e)
+            this.loadGame();
         })
 
 
@@ -165,18 +166,17 @@ class Games extends Component {
         // let statusColor=""
         if (this.state.statusColor === "success") {
             return (<div>
-                <img src="/images/carmeninjail.png" alt="" style={{ "width": "490px", "height": "400px" }}>
-                </img>
+                 <img src="/images/Carmen-Jail-3.gif" alt="" align="middle" style={{ "width": "490px", "height": "627px" }}>
+               </img>
 
             </div>
             );
         }
-        return <img src="/images/carmenlost.jpg" alt="" style={{ "width": "490px", "height": "400px" }}>
+        return <img src="/images/carmen-in-Paris.gif" alt="" align="middle" style={{ "width": "490px", "height": "630px" }}>
         </img>
     }
 
     loadGame = () => {
-        console.log("loadGame");
         let number = 5; // number of documents (cities) to get back randomly
         dbAPI.getCitiesRandom(number)
             .then(res => {
@@ -199,7 +199,6 @@ class Games extends Component {
 
     // Button Selection Handlers Below:
     landmarkBtnSelect = selection => {
-        console.log("landmarkBtnSelection: Selection: " + selection);
 
         if (this.state.gameOn === false) {
             console.log("landmarkBtnSelection: game ended and user didn't ask to restart");
@@ -421,7 +420,7 @@ class Games extends Component {
                             </ButtonGroup>
                         </ButtonToolbar>
                     </Col>
-                    <Col size="md-9">
+                    <Col size="md-4">
                         <ButtonToolbar>
                             <div>
                                 <ButtonGroup className="mr-2">
@@ -465,8 +464,6 @@ class Games extends Component {
                     </Col>
 
                 </Row>
-
-
             </Container >
         );
     }
