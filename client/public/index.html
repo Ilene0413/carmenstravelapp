@@ -24,17 +24,15 @@
     window.fbAsyncInit = function () {
       console.log("facebook fbAsyncInit");
       FB.init({
-        appId: "371085343493837", // need to get own app id
+        appId: "2250778778278655", // need to get own app id
         autoLogAppEvents: true,
         xfbml: true,
         version: "v3.2"
       });
-
       // Broadcast an event when FB object is ready
       var fbInitEvent = new Event("FBObjectReady");
       document.dispatchEvent(fbInitEvent);
     };
-
     (function (d, s, id) {
       console.log("facebook function");
       var js, fjs = d.getElementsByTagName(s)[0];
