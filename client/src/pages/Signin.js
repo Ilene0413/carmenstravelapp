@@ -13,7 +13,8 @@ class Signin extends Component {
 
     state = {
         userData: null, // just store database record.  Do I need the individual fields?
-        buttonEnabled: false, // initially disable start button. Only enable if user is logged in
+        disabled: true,
+        // buttonEnabled: false, // initially disable start button. Only enable if user is logged in
         userName: null,
         userID: null,
         wins: 0,
@@ -30,7 +31,8 @@ class Signin extends Component {
                         .then(res => {
                             this.setState({
                                 userData: res.data,
-                                buttonEnabled: true,
+                                // buttonEnabled: true,
+                                disabled: false,
                                 userName: res.data.username,
                                 userID: res.data.userid,
                                 wins: res.data.wins,
@@ -42,7 +44,8 @@ class Signin extends Component {
                 else {
                     this.setState({
                         userData: res.data[0],
-                        buttonEnabled: true,
+                        // buttonEnabled: true,
+                        disabled: false,
                         userName: res.data[0].username,
                         userID: res.data[0].userid,
                         wins: res.data[0].wins,
@@ -55,6 +58,7 @@ class Signin extends Component {
 
     onFacebookLogin = (loginStatus, resultObject) => {
         if (loginStatus === true) {
+            this.setState({disabled: false});
             this.loadUserData(resultObject.user.name, resultObject.user.id);
         } else {
             //alert("Facebook login error");
@@ -87,37 +91,36 @@ class Signin extends Component {
             <Container fluid>
                 {this.renderRedirect()}
                 <Row>
-                    <Col size="md-8">
+                    <Col size="md-10">
                         <h1 className="sigin navbar navbar-expand-sm navbar-dark bg-primary">
                             <Link className="navbar-brand" to="/">
                                 <img className="pull-left" id="logo" src="/images/carmensandiego.jpeg" alt="" style={{ width: 100, marginTop: -4 }} />
                                 Carmen's Travel App
                              </Link>
                             <div>
-
                             </div>
                         </h1>
                     </Col>
-                    <Col size="md-2">
+                    <div>
+                    <Col size="md-1">
                         <FacebookLoginButton onLogin={this.onFacebookLogin}>
                             <div className="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false" width="10px"></div>
                         </FacebookLoginButton>
                     </Col>
+                    <Col size="md-1">
+                        <button onClick={this.startBtnClicked} disabled={this.state.disabled} id="start" size="lg"> Start Game </button>
+                        {/* <button onClick={this.startBtnClicked} disabled={!this.state.buttonEnabled} id="start" size="lg"> Start Game </button> */}
 
-                    <Col size="md-2">
-                        <button onClick={this.startBtnClicked} id="start" size="lg"> Start Game </button>
                     </Col>
-
+                    </div>
                 </Row>
                 <Row>
-                    <Col size="md-12">
+                    <Col size="md-10">
                         <Globe />
                     </Col>
                 </Row>
-
             </Container>
         );
     }
 }
-
 export default Signin;
