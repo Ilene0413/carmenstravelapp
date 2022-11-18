@@ -16,7 +16,7 @@
     "react-hot-loader": "^4.8.4",
     "react-player": "^1.11.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "5.0.1",
     "resium": "^1.4.1",
     "speak-tts": "^2.0.8"
   },
